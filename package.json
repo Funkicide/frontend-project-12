@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build --prefix frontend",
-    "start": "npx start-server -s ./frontend/build"
+    "start": "npx start-server -s ./frontend/build",
+    "postinstall": "cd frontend && npm ci"
   },
   "repository": {
     "type": "git",
