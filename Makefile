@@ -9,3 +9,6 @@ start-backend:
 
 start:
 	make start-frontend & make start-backend
+
+lint-frontend:
+	make -C frontend lint
