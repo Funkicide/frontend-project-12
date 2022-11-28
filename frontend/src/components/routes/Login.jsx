@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import routes from '../../routes.js';
-import useAuth from '../../hooks/index.jsx';
+import { useAuth } from '../../hooks/index.jsx';
 
 const Login = () => {
   const [authFailed, setAuthFailed] = useState(false);

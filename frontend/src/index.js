@@ -1,13 +1,16 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import Root from './components/routes/Root.jsx';
 import ErrorPage from './components/routes/ErrorPage.jsx';
 import Login from './components/routes/Login.jsx';
-import AuthContext from './contexts/index.jsx';
+import AuthProvider from './providers/AuthProvider.jsx';
+import ChatProvider from './providers/ChatProvider.jsx';
+import store from './slices/index.js';
 
 const router = createBrowserRouter([
   {
@@ -21,27 +24,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    localStorage.removeItem('userId');
-    setLoggedIn(false);
-  };
-  const value = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ChatProvider>
+        <RouterProvider router={router} />
+      </ChatProvider>
     </AuthProvider>
-  </React.StrictMode>,
+  </Provider>,
 );
