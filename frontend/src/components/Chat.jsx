@@ -1,53 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import cn from 'classnames';
+import axios from 'axios';
 
-import { useChat } from '../hooks/index.jsx';
+import { useChat, useAuth } from '../hooks/index.jsx';
 import { actions } from '../slices/index.js';
+import ChannelButton from './ChannelButton.jsx';
+
+import routes from '../routes.js';
 
 const Chat = () => {
   const dispatch = useDispatch();
   const chatApi = useChat();
+  const auth = useAuth();
   const [text, setText] = useState('');
+  const defaultChannelRef = useRef(null);
+
+  useEffect(() => {
+    const authHeader = auth.getAuthHeader();
+
+    const getData = async () => {
+      const response = await axios.get(routes.api.usersPath(), {
+        headers: authHeader,
+      });
+
+      dispatch(actions.setInitialState(response.data));
+    };
+    getData();
+  }, [dispatch, auth]);
 
   const channels = useSelector((state) => state.channelsInfo.channels);
   const messages = useSelector((state) => state.messagesInfo.messages);
+  [defaultChannelRef.current] = channels;
 
   const currentChannelId = useSelector((state) => state.channelsInfo.currentChannelId);
-  const currentChannel = channels.find(({ id }) => currentChannelId === id);
+  const currentChannel = channels.find(({ id }) => currentChannelId === id)
+   ?? defaultChannelRef.current;
+
   const currentChannelMessages = messages
     .filter(({ channelId }) => channelId === currentChannelId);
 
-  const renderChannel = (channel) => {
-    const buttonClassNames = cn('w-100', 'rounded-0', 'text-start', 'btn', {
-      'btn-secondary': channel.id === currentChannelId,
-    });
+  const renderChannel = ({ id, name, removable }) => (
+    <li
+      key={id}
+      className="nav-item w-100"
+    >
+      <ChannelButton
+        handleChannelChange={() => dispatch(actions.setCurrentChannel({ channelId: id }))}
+        channel={{
+          id,
+          name,
+          removable,
+          currentChannelId: currentChannel.id,
+        }}
+      />
+    </li>
+  );
 
-    return (
-      <li
-        key={channel.id}
-        className="nav-item w-100"
-      >
-        <button
-          type="button"
-          className={buttonClassNames}
-          onClick={() => dispatch(actions.setCurrentChannel({ channelId: channel.id }))}
-        >
-          {'# '}
-          {channel.name}
-        </button>
-      </li>
-    );
-  };
-
-  const renderMessage = (message) => (
+  const renderMessage = ({ id, username, body }) => (
     <div
       className="text-break mb-2"
-      key={message.id}
+      key={id}
     >
-      <b>{message.username}</b>
+      <b>{username}</b>
       {': '}
-      {message.body}
+      {body}
     </div>
   );
 
@@ -56,7 +72,8 @@ const Chat = () => {
       <div className="row h-100 bg-white flex-md-row">
         <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
           <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-            <span>Каналы</span>
+            <div style={{ textAlign: 'center' }}>Каналы</div>
+            <button className="btn btn-primary" onClick={() => dispatch(actions.openModal({ type: 'add' }))} type="button">+</button>
           </div>
           <ul className="nav flex-column nav-pills nav-fill px-2">
             {channels.map(renderChannel)}
@@ -81,7 +98,7 @@ const Chat = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   const userId = JSON.parse(localStorage.getItem('userId'));
-                  chatApi.emitNewMessage({
+                  chatApi.postNewMessage({
                     body: text,
                     username: userId.username,
                     channelId: currentChannelId,

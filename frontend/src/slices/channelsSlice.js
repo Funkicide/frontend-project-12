@@ -11,7 +11,7 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     addChannel: (state, { payload }) => {
-      state.channels = [...state.channels, ...payload.channel];
+      state.channels = [...state.channels, payload];
     },
     removeChannel: (state, { payload: { channelId } }) => {
       state.channels = state.channels.filter(({ id }) => id !== channelId);
@@ -19,9 +19,9 @@ const channelsSlice = createSlice({
     setCurrentChannel: (state, { payload: { channelId } }) => {
       state.currentChannelId = channelId;
     },
-    renameChannel: (state, { payload: { channelId, channelName } }) => {
-      const channelToRename = state.channels.find(({ id }) => id === channelId);
-      channelToRename.name = channelName;
+    renameChannel: (state, { payload: { id, name } }) => {
+      const channelToRename = state.channels.find((channel) => channel.id === id);
+      channelToRename.name = name;
     },
     setInitialState: (state, { payload }) => {
       state.channels = payload.channels;

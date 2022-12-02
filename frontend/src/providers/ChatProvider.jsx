@@ -10,9 +10,31 @@ const ChatProvider = ({ children }) => {
   const socket = io();
   const dispatch = useDispatch();
 
-  const emitNewMessage = (message) => {
+  const postNewMessage = (message) => {
     console.log('Emiting: ', message);
     socket.emit('newMessage', message, (response) => {
+      console.log(response);
+    });
+  };
+
+  const postNewChannel = (channel) => {
+    console.log('Emiting: ', channel);
+    socket.emit('newChannel', channel, (response) => {
+      console.log(response);
+      dispatch(actions.setCurrentChannel({ channelId: response.data.id }));
+    });
+  };
+
+  const removeChannel = ({ id }) => {
+    console.log('Emiting: ', id);
+    socket.emit('removeChannel', { id }, (response) => {
+      console.log(response);
+    });
+  };
+
+  const renameChannel = ({ id, name }) => {
+    console.log('Emiting: ', id, name);
+    socket.emit('renameChannel', { id, name }, (response) => {
       console.log(response);
     });
   };
@@ -22,7 +44,28 @@ const ChatProvider = ({ children }) => {
     dispatch(actions.addMessage(message));
   });
 
-  const value = useMemo(() => ({ emitNewMessage }), [emitNewMessage]);
+  socket.on('newChannel', (channel) => {
+    console.log('Received channel: ', channel);
+    dispatch(actions.addChannel(channel));
+  });
+
+  socket.on('removeChannel', ({ id }) => {
+    console.log('Removed channel: ', id);
+    dispatch(actions.removeChannel({ channelId: id }));
+    // dispatch(actions.setCurrentChannel({ channelId: 1 }));
+  });
+
+  socket.on('renameChannel', ({ id, name }) => {
+    console.log('Renamed channel: ', { id, name });
+    dispatch(actions.renameChannel({ id, name }));
+  });
+
+  const value = useMemo(
+    () => ({
+      postNewMessage, postNewChannel, removeChannel, renameChannel,
+    }),
+    [postNewMessage, postNewChannel, removeChannel, renameChannel],
+  );
 
   return (
     <ChatContext.Provider value={value}>
