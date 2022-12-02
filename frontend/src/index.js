@@ -1,36 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Root from './components/routes/Root.jsx';
-import ErrorPage from './components/routes/ErrorPage.jsx';
-import Login from './components/routes/Login.jsx';
+
+import ModalWindow from './components/Modals/Modal.jsx';
+
 import AuthProvider from './providers/AuthProvider.jsx';
 import ChatProvider from './providers/ChatProvider.jsx';
 import store from './slices/index.js';
+import AppRoutes from './AppRoutes.jsx';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'login',
-    element: <Login />,
-  },
-]);
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const rootNode = ReactDOM.createRoot(document.getElementById('root'));
+rootNode.render(
   <Provider store={store}>
-    <AuthProvider>
-      <ChatProvider>
-        <RouterProvider router={router} />
-      </ChatProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ChatProvider>
+          <AppRoutes />
+          <ModalWindow />
+        </ChatProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </Provider>,
 );
