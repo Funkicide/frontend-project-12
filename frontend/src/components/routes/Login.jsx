@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import { Form, Button, FloatingLabel } from 'react-bootstrap';
+import {
+  Form, Button, FloatingLabel,
+} from 'react-bootstrap';
 import {
   useNavigate,
 } from 'react-router-dom';
@@ -19,7 +21,7 @@ const Login = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, [authFailed]);
 
   const auth = useAuth();
 
@@ -28,6 +30,8 @@ const Login = () => {
       username: '',
       password: '',
     },
+    validateOnBlur: false,
+    validateOnChange: false,
     validationSchema: yup.object().shape({
       username: yup.string().required(),
       password: yup.string().required(),
@@ -35,16 +39,16 @@ const Login = () => {
     onSubmit: async ({ username, password }) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post(routes.loginPath(), { username, password });
+        const { data } = await axios.post(routes.api.loginPath(), { username, password });
         console.log(data);
         localStorage.setItem('userId', JSON.stringify(data));
         auth.logIn();
-        navigate('/');
+        navigate(routes.pages.rootPath());
       } catch (error) {
         formik.setSubmitting(false);
         if (error.isAxiosError && error.response.status === 401) {
           setAuthFailed(true);
-          console.log(inputRef.current);
+          formik.errors.auth = 'the username or password is incorrect';
           inputRef.current.focus();
           return;
         }
@@ -68,15 +72,14 @@ const Login = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
                     placeholder="Enter username"
-                    isValid={formik.touched.username && !formik.errors.username}
-                    isInvalid={!!formik.errors.username}
+                    isInvalid={authFailed || formik.errors.username}
                     ref={inputRef}
                   />
-                  <Form.Control.Feedback tooltip type="invalid">{formik.errors.username}</Form.Control.Feedback>
+                  {formik.errors.username && <Form.Control.Feedback tooltip type="invalid">{formik.errors.username}</Form.Control.Feedback>}
                 </FloatingLabel>
               </Form.Group>
 
-              <Form.Group className="mb-3 position-relative">
+              <Form.Group className="mb-4 position-relative">
                 <FloatingLabel label="Enter password">
                   <Form.Control
                     id="password"
@@ -85,17 +88,16 @@ const Login = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     placeholder="Enter password"
-                    isValid={formik.touched.password && !formik.errors.password}
-                    isInvalid={!!formik.errors.password}
+                    isInvalid={authFailed || formik.errors.password}
                   />
                   <Form.Control.Feedback tooltip type="invalid">{formik.errors.password}</Form.Control.Feedback>
+                  {authFailed && <Form.Control.Feedback tooltip type="invalid">{formik.errors.auth}</Form.Control.Feedback>}
                 </FloatingLabel>
               </Form.Group>
-              <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
+              <div className="w-100">
+                <Button className="w-100" variant="primary" type="submit">
                   Submit
                 </Button>
-                {authFailed && <div className="text-center bg-danger text-white">the username or password is incorrect</div>}
               </div>
 
             </Form>

@@ -5,7 +5,7 @@ const ErrorPage = () => {
   console.error(error);
 
   return (
-    <div id="error-page">
+    <div style={{ textAlign: 'center' }} className="h-100" id="error-page">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
