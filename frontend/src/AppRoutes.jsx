@@ -4,6 +4,7 @@ import Chat from './components/Chat.jsx';
 import GuardedRoute from './components/GuardedRoute.jsx';
 import Login from './components/routes/Login.jsx';
 import Root from './components/routes/Root.jsx';
+import SignUp from './components/routes/SighUp.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -17,6 +18,7 @@ const AppRoutes = () => (
           )}
       />
       <Route path={routes.pages.loginPath()} element={<Login />} />
+      <Route path={routes.pages.signUpPath()} element={<SignUp />} />
     </Route>
   </Routes>
 );

@@ -9,5 +9,6 @@ export default {
   pages: {
     rootPath: () => '/',
     loginPath: () => '/login',
+    signUpPath: () => '/signup',
   },
 };
