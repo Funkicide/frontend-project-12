@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { Spinner } from 'react-bootstrap';
+import filter from 'leo-profanity';
 
 import { useChat, useAuth } from '../hooks/index.jsx';
 import { actions } from '../slices/index.js';
@@ -34,6 +35,9 @@ const Chat = () => {
         throw error;
       }
     };
+
+    filter.loadDictionary('ru');
+
     getData();
   }, [dispatch, auth, t]);
 
@@ -71,8 +75,7 @@ const Chat = () => {
       key={id}
     >
       <b>{username}</b>
-      {': '}
-      {body}
+      {`: ${filter.clean(body)}`}
     </div>
   );
 
