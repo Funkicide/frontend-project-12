@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useRef, useEffect } from 'react';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../slices';
 import { useChat } from '../../hooks';
 
 const Rename = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const { id, name: previousName } = useSelector((state) => state.modal.item);
   const channels = useSelector((state) => state.channelsInfo.channels);
@@ -28,7 +30,7 @@ const Rename = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      currentName: yup.string().notOneOf(channelNames, 'Name must be unique').required('Required field!'),
+      currentName: yup.string().notOneOf(channelNames, t('modals.validation.notUnique')).required(t('modals.validation.requiredField')),
     }),
     onSubmit: async ({ currentName }, helpers) => {
       helpers.setSubmitting(true);
@@ -46,7 +48,7 @@ const Rename = () => {
       animation
     >
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.rename.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <fieldset disabled={formik.isSubmitting}>
@@ -60,8 +62,8 @@ const Rename = () => {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">Отмена</Button>
-        <Button onClick={formik.handleSubmit} type="submit" variant="primary">Отправить</Button>
+        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.rename.cancelButton')}</Button>
+        <Button onClick={formik.handleSubmit} type="submit" variant="primary">{t('modals.rename.confirmButton')}</Button>
       </Modal.Footer>
     </Modal>
   );

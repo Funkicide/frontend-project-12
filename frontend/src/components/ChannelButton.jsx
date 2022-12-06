@@ -1,7 +1,7 @@
 import {
   ButtonGroup, Button, DropdownButton, Dropdown,
 } from 'react-bootstrap';
-
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ const ChannelButton = ({
   }, handleChannelChange,
 }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const buttonClassNames = cn('w-100', 'rounded-0', 'text-start', 'text-truncate', 'btn');
 
   if (!removable) {
@@ -22,8 +23,7 @@ const ChannelButton = ({
         variant={id === currentChannelId ? 'secondary' : null}
         onClick={handleChannelChange}
       >
-        {'# '}
-        {name}
+        {`# ${name}`}
       </Button>
     );
   }
@@ -34,8 +34,7 @@ const ChannelButton = ({
         className={buttonClassNames}
         variant={id === currentChannelId ? 'secondary' : null}
       >
-        {'# '}
-        {name}
+        {`# ${name}`}
       </Button>
 
       <DropdownButton
@@ -45,8 +44,8 @@ const ChannelButton = ({
         as={ButtonGroup}
         id="bg-nested-dropdown"
       >
-        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'rename', item: { id, name } }))} eventKey="1">Переименовать</Dropdown.Item>
-        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'remove', item: id }))} eventKey="2">Удалить</Dropdown.Item>
+        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'rename', item: { id, name } }))} eventKey="1">{t('components.channelButton.renameButton')}</Dropdown.Item>
+        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'remove', item: id }))} eventKey="2">{t('components.channelButton.deleteButton')}</Dropdown.Item>
       </DropdownButton>
     </ButtonGroup>
   );

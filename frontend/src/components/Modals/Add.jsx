@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useRef, useEffect } from 'react';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../slices';
 import { useChat } from '../../hooks';
 
 const Add = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const inputRef = useRef(null);
 
   const channels = useSelector((state) => state.channelsInfo.channels);
@@ -28,7 +30,7 @@ const Add = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      channelName: yup.string().notOneOf(channelNames, 'Name must be unique').required('Required field!'),
+      channelName: yup.string().notOneOf(channelNames, t('modals.validation.notUnique')).required(t('modals.validation.requiredField')),
     }),
     onSubmit: async ({ channelName }, helpers) => {
       helpers.setSubmitting(true);
@@ -46,7 +48,7 @@ const Add = () => {
       animation
     >
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.add.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <fieldset disabled={formik.isSubmitting}>
@@ -60,8 +62,8 @@ const Add = () => {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">Отмена</Button>
-        <Button onClick={formik.handleSubmit} type="submit" variant="primary">Отправить</Button>
+        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.add.cancelButton')}</Button>
+        <Button onClick={formik.handleSubmit} type="submit" variant="primary">{t('modals.add.confirmButton')}</Button>
       </Modal.Footer>
     </Modal>
   );

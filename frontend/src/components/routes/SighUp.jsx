@@ -10,6 +10,7 @@ import {
 import {
   useState, useRef, useEffect,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes.js';
 import { useAuth } from '../../hooks/index.jsx';
@@ -18,6 +19,7 @@ const SighUp = () => {
   const [didSignUpFail, setSignUpFail] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -32,12 +34,17 @@ const SighUp = () => {
       passwordConfirmation: '',
     },
     validationSchema: yup.object().shape({
-      username: yup.string().min(3).max(20).required(),
-      password: yup.string().min(6).required(),
+      username: yup.string()
+        .min(3, t('pages.signUp.validation.usernameLength'))
+        .max(20, t('pages.signUp.validation.usernameLength'))
+        .required(t('pages.signUp.validation.requiredField')),
+      password: yup.string()
+        .min(6, t('pages.signUp.validation.passwordLength'))
+        .required(t('pages.signUp.validation.requiredField')),
       passwordConfirmation: yup.string()
         .test(
           'confirmPassword',
-          'Пароли должны совпадать',
+          t('pages.signUp.validation.confirmPassword'),
           (password, context) => password === context.parent.password,
         ),
     }),
@@ -50,7 +57,7 @@ const SighUp = () => {
         auth.logIn();
         navigate(routes.pages.rootPath());
       } catch (error) {
-        // formik.setSubmitting(false);
+        formik.setSubmitting(false);
         setSignUpFail(true);
         console.log(error);
         if (error.isAxiosError && error.response.status === 409) {
@@ -70,16 +77,16 @@ const SighUp = () => {
             <Card.Body className="p-4">
               <fieldset disabled={formik.isSubmitting}>
                 <Form onSubmit={formik.handleSubmit} className="p-4">
-                  <h1 className="text-center mb-4">Регистрация</h1>
+                  <h1 className="text-center mb-4">{t('pages.signUp.header')}</h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label="Enter username">
+                    <FloatingLabel label={t('pages.signUp.usernameLabel')}>
                       <Form.Control
                         id="username"
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
-                        placeholder="Enter username"
+                        placeholder={t('pages.signUp.usernameLabel')}
                         isInvalid={didSignUpFail
                           || (formik.touched.username && formik.errors.username)}
                         ref={inputRef}
@@ -90,7 +97,7 @@ const SighUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label="Enter password">
+                    <FloatingLabel label={t('pages.signUp.passwordLabel')}>
                       <Form.Control
                         id="password"
                         name="password"
@@ -98,7 +105,7 @@ const SighUp = () => {
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
                         type="password"
-                        placeholder="Enter password"
+                        placeholder={t('pages.signUp.passwordLabel')}
                         isInvalid={didSignUpFail
                           || (formik.touched.password && formik.errors.password)}
                       />
@@ -108,7 +115,7 @@ const SighUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel label="Confirm password">
+                    <FloatingLabel label={t('pages.signUp.confirmPasswordLabel')}>
                       <Form.Control
                         id="passwordConfirmation"
                         name="passwordConfirmation"
@@ -116,7 +123,7 @@ const SighUp = () => {
                         onBlur={formik.handleBlur}
                         value={formik.values.passwordConfirmation}
                         type="password"
-                        placeholder="Confirm password"
+                        placeholder={t('pages.signUp.confirmPasswordLabel')}
                         isInvalid={didSignUpFail
                           || (formik.touched.passwordConfirmation
                           && formik.errors.passwordConfirmation)}
@@ -128,12 +135,12 @@ const SighUp = () => {
                         && (!formik.errors.username
                           && !formik.errors.password
                           && !formik.errors.passwordConfirmation)
-                        && <Form.Control.Feedback tooltip type="invalid">Такой пользователь уже существует</Form.Control.Feedback>}
+                        && <Form.Control.Feedback tooltip type="invalid">{t('pages.signUp.validation.userExists')}</Form.Control.Feedback>}
                     </FloatingLabel>
                   </Form.Group>
                   <div className="w-100">
                     <Button className="w-100" variant="primary" type="submit">
-                      Зарегистрироваться
+                      {t('pages.signUp.confirmButton')}
                     </Button>
                   </div>
                 </Form>

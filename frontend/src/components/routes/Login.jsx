@@ -10,6 +10,7 @@ import {
 import {
   useState, useRef, useEffect,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes.js';
 import { useAuth } from '../../hooks/index.jsx';
@@ -18,6 +19,7 @@ const Login = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -33,8 +35,8 @@ const Login = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      username: yup.string().required(),
-      password: yup.string().required(),
+      username: yup.string().required(t('pages.login.validation.requiredField')),
+      password: yup.string().required(t('pages.login.validation.requiredField')),
     }),
     onSubmit: async ({ username, password }) => {
       setAuthFailed(false);
@@ -49,7 +51,6 @@ const Login = () => {
         console.log(error);
         if (error.isAxiosError && error.response.status === 401) {
           setAuthFailed(true);
-          formik.errors.auth = 'the username or password is incorrect';
           inputRef.current.focus();
           return;
         }
@@ -65,16 +66,16 @@ const Login = () => {
             <Card.Body className="p-4">
               <fieldset disabled={formik.isSubmitting}>
                 <Form onSubmit={formik.handleSubmit} className="p-4">
-                  <h1 className="text-center mb-4">Войти</h1>
+                  <h1 className="text-center mb-4">{t('pages.login.header')}</h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label="Enter username">
+                    <FloatingLabel label={t('pages.login.usernameLabel')}>
                       <Form.Control
                         id="username"
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
-                        placeholder="Enter username"
+                        placeholder={t('pages.login.usernameLabel')}
                         isInvalid={authFailed || formik.errors.username}
                         ref={inputRef}
                       />
@@ -82,7 +83,7 @@ const Login = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel label="Enter password">
+                    <FloatingLabel label={t('pages.login.passwordLabel')}>
                       <Form.Control
                         id="password"
                         name="password"
@@ -90,16 +91,16 @@ const Login = () => {
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
                         type="password"
-                        placeholder="Enter password"
+                        placeholder={t('pages.login.passwordLabel')}
                         isInvalid={authFailed || formik.errors.password}
                       />
                       <Form.Control.Feedback tooltip type="invalid">{formik.errors.password}</Form.Control.Feedback>
-                      {authFailed && <Form.Control.Feedback tooltip type="invalid">{formik.errors.auth}</Form.Control.Feedback>}
+                      {authFailed && <Form.Control.Feedback tooltip type="invalid">{t('pages.login.validation.wrongCredentials')}</Form.Control.Feedback>}
                     </FloatingLabel>
                   </Form.Group>
                   <div className="w-100">
                     <Button className="w-100" variant="primary" type="submit">
-                      Отправить
+                      {t('pages.login.confirmButton')}
                     </Button>
                   </div>
                 </Form>
@@ -107,9 +108,9 @@ const Login = () => {
             </Card.Body>
             <Card.Footer className="p-3">
               <div className="text-center">
-                <span>Нет аккаунта?</span>
+                <span>{t('pages.login.footer.signUpHeader')}</span>
                 {' '}
-                <Card.Link href={routes.pages.signUpPath()}>Регистрация</Card.Link>
+                <Card.Link href={routes.pages.signUpPath()}>{t('pages.login.footer.signUpLink')}</Card.Link>
               </div>
             </Card.Footer>
           </Card>

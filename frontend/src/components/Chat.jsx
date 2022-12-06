@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import { useChat, useAuth } from '../hooks/index.jsx';
 import { actions } from '../slices/index.js';
@@ -10,6 +11,7 @@ import routes from '../routes.js';
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const chatApi = useChat();
   const auth = useAuth();
   const [text, setText] = useState('');
@@ -72,7 +74,7 @@ const Chat = () => {
       <div className="row h-100 bg-white flex-md-row">
         <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
           <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-            <div style={{ textAlign: 'center' }}>Каналы</div>
+            <div style={{ textAlign: 'center' }}>{t('components.chat.header')}</div>
             <button className="btn btn-primary" onClick={() => dispatch(actions.openModal({ type: 'add' }))} type="button">+</button>
           </div>
           <ul className="nav flex-column nav-pills nav-fill px-2">
@@ -84,9 +86,7 @@ const Chat = () => {
             <div className="bg-light mb-4 p-3 shadow-sm small">
               <p className="m-0"><b>{currentChannel && currentChannel.name}</b></p>
               <span className="text-muted">
-                {currentChannelMessages && currentChannelMessages.length}
-                {' '}
-                messages
+                {t('components.chat.messages.message', { count: currentChannelMessages.length })}
               </span>
             </div>
             <div className="chat-messages overflow-auto px-5">
@@ -107,7 +107,7 @@ const Chat = () => {
                 }}
               >
                 <input onChange={(e) => setText(e.target.value)} value={text} className="border-0 p-0 ps-2 form-control" />
-                <button type="submit" className="btn btn-group-vertical btn-primary">Отправить</button>
+                <button type="submit" className="btn btn-group-vertical btn-primary">{t('components.chat.confirmButton')}</button>
               </form>
             </div>
           </div>
