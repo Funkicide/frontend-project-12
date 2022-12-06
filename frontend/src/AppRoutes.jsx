@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import routes from './routes';
 import Chat from './components/Chat.jsx';
 import GuardedRoute from './components/GuardedRoute.jsx';
-import Login from './components/routes/Login.jsx';
-import SignUp from './components/routes/SighUp.jsx';
+import Login from './components/pages/Login.jsx';
+import SignUp from './components/pages/SighUp.jsx';
 import App from './components/App';
 
 const AppRoutes = () => (
