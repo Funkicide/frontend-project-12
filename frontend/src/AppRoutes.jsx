@@ -3,12 +3,12 @@ import routes from './routes';
 import Chat from './components/Chat.jsx';
 import GuardedRoute from './components/GuardedRoute.jsx';
 import Login from './components/routes/Login.jsx';
-import Root from './components/routes/Root.jsx';
 import SignUp from './components/routes/SighUp.jsx';
+import App from './components/App';
 
 const AppRoutes = () => (
   <Routes>
-    <Route element={<Root />}>
+    <Route element={<App />}>
       <Route
         path={routes.pages.rootPath()}
         element={(
