@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useRef, useEffect } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
 import { useChat } from '../../hooks';
@@ -37,6 +38,7 @@ const Rename = () => {
       chatApi.renameChannel({ id, name: currentName });
       dispatch(actions.closeModal());
       helpers.setSubmitting(false);
+      toast.success(t('modals.rename.toast'));
     },
   });
 

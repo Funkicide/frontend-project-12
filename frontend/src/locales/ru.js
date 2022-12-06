@@ -5,17 +5,20 @@ const ru = {
         header: 'Добавить канал',
         confirmButton: 'Отправить',
         cancelButton: 'Отмена',
+        toast: 'Канал успешно добавлен!',
       },
       remove: {
         header: 'Удалить канал',
         body: 'Уверены?',
         confirmButton: 'Удалить',
         cancelButton: 'Отмена',
+        toast: 'Канал успешно удалён!',
       },
       rename: {
         header: 'Переименовать канал',
         confirmButton: 'Отправить',
         cancelButton: 'Отмена',
+        toast: 'Канал успешно переименован!',
       },
       validation: {
         requiredField: 'Обязательное поле',
@@ -66,6 +69,8 @@ const ru = {
           message_many: '{{count}} сообщений',
         },
         confirmButton: 'Отправить',
+        toast: 'Ошибка соединения.',
+        spinner: 'Идёт загрузка...',
       },
       header: {
         brandLink: 'Hexlet Chat',

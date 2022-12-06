@@ -6,6 +6,8 @@ import {
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ModalWindow from './components/Modals/Modal.jsx';
 
@@ -33,6 +35,18 @@ const init = async () => {
         <AuthProvider>
           <ChatProvider>
             <AppRoutes />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <ModalWindow />
           </ChatProvider>
         </AuthProvider>
