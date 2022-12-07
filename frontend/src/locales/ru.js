@@ -68,6 +68,8 @@ const ru = {
           message_few: '{{count}} сообщения',
           message_many: '{{count}} сообщений',
         },
+        addChannelButton: '+',
+        messageFormPlaceholder: 'Ваше сообщение...',
         confirmButton: 'Отправить',
         toast: 'Ошибка соединения.',
         spinner: 'Идёт загрузка...',

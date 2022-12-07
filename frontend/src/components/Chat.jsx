@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { Spinner } from 'react-bootstrap';
+import {
+  Spinner, Button, Form, InputGroup,
+} from 'react-bootstrap';
 import filter from 'leo-profanity';
 
 import { useChat, useAuth } from '../hooks/index.jsx';
@@ -94,7 +96,13 @@ const Chat = () => {
             <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
               <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
                 <div style={{ textAlign: 'center' }}>{t('components.chat.header')}</div>
-                <button className="btn btn-primary" onClick={() => dispatch(actions.openModal({ type: 'add' }))} type="button">+</button>
+                <Button
+                  variant="primary"
+                  onClick={() => dispatch(actions.openModal({ type: 'add' }))}
+                  size="sm"
+                >
+                  {t('components.chat.addChannelButton')}
+                </Button>
               </div>
               <ul className="nav flex-column nav-pills nav-fill px-2">
                 {channels.map(renderChannel)}
@@ -112,8 +120,8 @@ const Chat = () => {
                   {currentChannelMessages.map(renderMessage)}
                 </div>
                 <div className="mt-auto px-5 py-3">
-                  <form
-                    className="py-1 border rounded-2"
+                  <Form
+                    className="border rounded-2"
                     onSubmit={(e) => {
                       e.preventDefault();
                       const userId = JSON.parse(localStorage.getItem('userId'));
@@ -125,9 +133,22 @@ const Chat = () => {
                       setText('');
                     }}
                   >
-                    <input onChange={(e) => setText(e.target.value)} value={text} className="border-0 p-0 ps-2 form-control" />
-                    <button type="submit" className="btn btn-group-vertical btn-primary">{t('components.chat.confirmButton')}</button>
-                  </form>
+                    <InputGroup>
+                      <Form.Control
+                        onChange={(e) => setText(e.target.value)}
+                        value={text}
+                        className="border-0 p-0 ps-2 form-control"
+                        placeholder={t('components.chat.messageFormPlaceholder')}
+                      />
+                      <Button
+                        disabled={text === ''}
+                        type="submit"
+                        variant="outline-primary"
+                      >
+                        {t('components.chat.confirmButton')}
+                      </Button>
+                    </InputGroup>
+                  </Form>
                 </div>
               </div>
             </div>
