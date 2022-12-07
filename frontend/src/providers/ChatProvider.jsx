@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
@@ -11,14 +12,14 @@ const ChatProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const postNewMessage = (message) => {
-    console.log('Emiting: ', message);
+    console.log('Emiting new message: ', message);
     socket.emit('newMessage', message, (response) => {
       console.log(response);
     });
   };
 
   const postNewChannel = (channel) => {
-    console.log('Emiting: ', channel);
+    console.log('Emiting new channel: ', channel);
     socket.emit('newChannel', channel, (response) => {
       console.log(response);
       dispatch(actions.setCurrentChannel({ channelId: response.data.id }));
@@ -26,14 +27,14 @@ const ChatProvider = ({ children }) => {
   };
 
   const removeChannel = ({ id }) => {
-    console.log('Emiting: ', id);
+    console.log('Emiting delete channel: ', id);
     socket.emit('removeChannel', { id }, (response) => {
       console.log(response);
     });
   };
 
   const renameChannel = ({ id, name }) => {
-    console.log('Emiting: ', id, name);
+    console.log('Emiting rename channel: ', id, name);
     socket.emit('renameChannel', { id, name }, (response) => {
       console.log(response);
     });

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useMemo } from 'react';
 
 import { AuthContext } from '../contexts/index.jsx';
