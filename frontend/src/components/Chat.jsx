@@ -21,6 +21,7 @@ const Chat = () => {
   const auth = useAuth();
   const [text, setText] = useState('');
   const defaultChannelRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const authHeader = auth.getAuthHeader();
@@ -42,6 +43,12 @@ const Chat = () => {
 
     getData();
   }, [dispatch, auth, t]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  });
 
   const channels = useSelector((state) => state.channelsInfo.channels);
   const messages = useSelector((state) => state.messagesInfo.messages);
@@ -135,6 +142,7 @@ const Chat = () => {
                   >
                     <InputGroup>
                       <Form.Control
+                        ref={inputRef}
                         onChange={(e) => setText(e.target.value)}
                         value={text}
                         className="border-0 p-0 ps-2 form-control"
