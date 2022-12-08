@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import filter from 'leo-profanity';
 
-import { useChat, useAuth } from '../hooks/index.jsx';
+import { useSocket, useAuth } from '../hooks/index.jsx';
 import { actions } from '../slices/index.js';
 import ChannelButton from './ChannelButton.jsx';
 
@@ -17,7 +17,7 @@ import routes from '../routes.js';
 const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const chatApi = useChat();
+  const socket = useSocket();
   const auth = useAuth();
   const [text, setText] = useState('');
   const defaultChannelRef = useRef(null);
@@ -132,12 +132,14 @@ const Chat = () => {
                     onSubmit={(e) => {
                       e.preventDefault();
                       const userId = JSON.parse(localStorage.getItem('userId'));
-                      chatApi.postNewMessage({
+                      const message = {
                         body: text,
                         username: userId.username,
                         channelId: currentChannelId,
+                      };
+                      socket.emit('newMessage', message, () => {
+                        setText('');
                       });
-                      setText('');
                     }}
                   >
                     <InputGroup>

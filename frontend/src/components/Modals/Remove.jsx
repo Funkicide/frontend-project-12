@@ -1,21 +1,25 @@
+import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useChat } from '../../hooks';
+import { useSocket } from '../../hooks';
 
 const Remove = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const id = useSelector((state) => state.modal.item);
-  const chatApi = useChat();
+  const [isSubmitting, setSubmitting] = useState(false);
+  const socket = useSocket();
 
   const handleDeletion = () => {
-    chatApi.removeChannel({ id });
-    dispatch(actions.closeModal());
-    toast.success(t('modals.remove.toast'));
+    setSubmitting(true);
+    socket.emit('removeChannel', { id }, () => {
+      dispatch(actions.closeModal());
+      toast.success(t('modals.remove.toast'));
+    });
   };
 
   return (
@@ -31,7 +35,14 @@ const Remove = () => {
       <Modal.Body>{t('modals.remove.body')}</Modal.Body>
       <Modal.Footer>
         <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.remove.cancelButton')}</Button>
-        <Button onClick={handleDeletion} variant="danger">{t('modals.remove.confirmButton')}</Button>
+        <Button
+          disabled={isSubmitting}
+          onClick={handleDeletion}
+          variant="danger"
+        >
+          {isSubmitting ? t('modals.remove.loadingStatus') : t('modals.remove.confirmButton')}
+
+        </Button>
       </Modal.Footer>
     </Modal>
   );

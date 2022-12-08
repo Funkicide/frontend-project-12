@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useChat } from '../../hooks';
+import { useSocket } from '../../hooks';
 
 const Add = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Add = () => {
 
   const channels = useSelector((state) => state.channelsInfo.channels);
   const channelNames = channels.map((channel) => channel.name);
-  const chatApi = useChat();
+  const socket = useSocket();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,14 +31,18 @@ const Add = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      channelName: yup.string().notOneOf(channelNames, t('modals.validation.notUnique')).required(t('modals.validation.requiredField')),
+      channelName: yup.string()
+        .min(3, t('modals.validation.channelNameLength'))
+        .max(20, t('modals.validation.channelNameLength'))
+        .notOneOf(channelNames, t('modals.validation.notUnique'))
+        .required(t('modals.validation.requiredField')),
     }),
-    onSubmit: async ({ channelName }, helpers) => {
-      helpers.setSubmitting(true);
-      chatApi.postNewChannel({ name: channelName });
-      dispatch(actions.closeModal());
-      helpers.setSubmitting(false);
-      toast.success(t('modals.add.toast'));
+    onSubmit: ({ channelName }) => {
+      socket.emit('newChannel', { name: channelName }, ({ data }) => {
+        dispatch(actions.setCurrentChannel({ channelId: data.id }));
+        dispatch(actions.closeModal());
+        toast.success(t('modals.add.toast'));
+      });
     },
   });
 
@@ -53,19 +57,32 @@ const Add = () => {
         <Modal.Title>{t('modals.add.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <fieldset disabled={formik.isSubmitting}>
-          <Form noValidate onSubmit={formik.handleSubmit}>
-            <Form.Group className="position-relative">
-              <Form.Control isInvalid={formik.errors.channelName} ref={inputRef} name="channelName" onChange={formik.handleChange} value={formik.values.channelName} />
-              <Form.Control.Feedback tooltip type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
-            </Form.Group>
-          </Form>
-        </fieldset>
+        <Form noValidate onSubmit={formik.handleSubmit}>
+          <Form.Group className="position-relative">
+            <Form.Control
+              disabled={formik.isSubmitting}
+              isInvalid={formik.errors.channelName}
+              ref={inputRef}
+              name="channelName"
+              onChange={formik.handleChange}
+              value={formik.values.channelName}
+            />
+            <Form.Control.Feedback tooltip type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
+          </Form.Group>
+        </Form>
 
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.add.cancelButton')}</Button>
-        <Button onClick={formik.handleSubmit} type="submit" variant="primary">{t('modals.add.confirmButton')}</Button>
+        <Button
+          disabled={formik.isSubmitting}
+          onClick={formik.handleSubmit}
+          type="submit"
+          variant="primary"
+        >
+          {formik.isSubmitting ? t('modals.add.loadingStatus') : t('modals.add.confirmButton')}
+
+        </Button>
       </Modal.Footer>
     </Modal>
   );

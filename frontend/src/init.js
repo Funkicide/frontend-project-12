@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModalWindow from './components/Modals/Modal.jsx';
 
 import AuthProvider from './providers/AuthProvider.jsx';
-import ChatProvider from './providers/ChatProvider.jsx';
+import SocketProvider from './providers/SocketProvider.jsx';
 import store from './slices/index.js';
 import AppRoutes from './AppRoutes.jsx';
 import ru from './locales/ru.js';
@@ -45,7 +45,7 @@ const init = async () => {
         <Provider store={store}>
           <BrowserRouter>
             <AuthProvider>
-              <ChatProvider>
+              <SocketProvider>
                 <AppRoutes />
                 <ToastContainer
                   position="top-right"
@@ -60,7 +60,7 @@ const init = async () => {
                   theme="light"
                 />
                 <ModalWindow />
-              </ChatProvider>
+              </SocketProvider>
             </AuthProvider>
           </BrowserRouter>
         </Provider>
