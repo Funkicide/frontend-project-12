@@ -33,7 +33,7 @@ const ru = {
       login: {
         header: 'Войти',
         confirmButton: 'Отправить',
-        usernameLabel: 'Имя пользователя',
+        usernameLabel: 'Ваш ник',
         passwordLabel: 'Пароль',
         footer: {
           signUpHeader: 'Нет аккаунта?',
