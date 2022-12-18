@@ -90,6 +90,7 @@ const SighUp = () => {
                         isInvalid={didSignUpFail
                           || (formik.touched.username && formik.errors.username)}
                         ref={inputRef}
+                        required
                       />
                       {formik.errors.username
                         && formik.touched.username
@@ -108,6 +109,7 @@ const SighUp = () => {
                         placeholder={t('pages.signUp.passwordLabel')}
                         isInvalid={didSignUpFail
                           || (formik.touched.password && formik.errors.password)}
+                        required
                       />
                       {formik.errors.password
                         && formik.touched.password
