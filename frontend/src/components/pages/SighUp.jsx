@@ -7,7 +7,7 @@ import {
 import {
   useNavigate,
 } from 'react-router-dom';
-import {
+import React, {
   useState, useRef, useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
