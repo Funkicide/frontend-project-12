@@ -7,7 +7,7 @@ const ru = {
         cancelButton: 'Отмена',
         loadingStatus: 'Отправка...',
         formLabel: 'Имя канала',
-        toast: 'Канал успешно добавлен!',
+        toast: 'Канал создан',
       },
       remove: {
         header: 'Удалить канал',
@@ -15,7 +15,7 @@ const ru = {
         confirmButton: 'Удалить',
         cancelButton: 'Отмена',
         loadingStatus: 'Удаление...',
-        toast: 'Канал успешно удалён!',
+        toast: 'Канал удалён',
       },
       rename: {
         header: 'Переименовать канал',
@@ -23,7 +23,7 @@ const ru = {
         cancelButton: 'Отмена',
         loadingStatus: 'Отправка...',
         formLabel: 'Имя канала',
-        toast: 'Канал успешно переименован!',
+        toast: 'Канал переименован',
       },
       validation: {
         requiredField: 'Обязательное поле',
