@@ -142,8 +142,9 @@ const Chat = () => {
                       });
                     }}
                   >
-                    <InputGroup>
+                    <InputGroup hasValidation={!text}>
                       <Form.Control
+                        aria-label={t('components.chat.messageFormAriaLabel')}
                         ref={inputRef}
                         onChange={(e) => setText(e.target.value)}
                         value={text}
@@ -151,7 +152,7 @@ const Chat = () => {
                         placeholder={t('components.chat.messageFormPlaceholder')}
                       />
                       <Button
-                        disabled={text === ''}
+                        disabled={!text}
                         type="submit"
                         variant="outline-primary"
                       >

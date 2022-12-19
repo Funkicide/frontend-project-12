@@ -74,6 +74,7 @@ const ru = {
         },
         addChannelButton: '+',
         messageFormPlaceholder: 'Ваше сообщение...',
+        messageFormAriaLabel: 'Новое сообщение',
         confirmButton: 'Отправить',
         toast: 'Ошибка соединения.',
         spinner: 'Идёт загрузка...',
