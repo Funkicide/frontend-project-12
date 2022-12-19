@@ -65,6 +65,7 @@ const ru = {
       channelButton: {
         renameButton: 'Переименовать',
         deleteButton: 'Удалить',
+        dropdownToggleLabel: 'Управление каналом',
       },
       chat: {
         header: 'Каналы',

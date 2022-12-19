@@ -1,5 +1,5 @@
 import {
-  ButtonGroup, Button, DropdownButton, Dropdown,
+  ButtonGroup, Button, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
@@ -14,7 +14,8 @@ const ChannelButton = ({
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const buttonClassNames = cn('w-100', 'rounded-0', 'text-start', 'text-truncate', 'btn');
+  const buttonClassNames = cn('w-100', 'rounded-0', 'text-start', 'text-truncate');
+  const toggleClassNames = cn('rounded-0', 'flex-grow-0', 'btn');
 
   if (!removable) {
     return (
@@ -28,7 +29,7 @@ const ChannelButton = ({
     );
   }
   return (
-    <ButtonGroup className="d-flex">
+    <Dropdown as={ButtonGroup} className="d-flex">
       <Button
         onClick={handleChannelChange}
         className={buttonClassNames}
@@ -37,17 +38,31 @@ const ChannelButton = ({
         {`# ${name}`}
       </Button>
 
-      <DropdownButton
-        bsPrefix={buttonClassNames}
+      <Dropdown.Toggle
+        split
         variant={id === currentChannelId ? 'secondary' : null}
-        title=""
-        as={ButtonGroup}
-        id="bg-nested-dropdown"
+        childBsPrefix={toggleClassNames}
       >
-        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'rename', item: { id, name } }))} eventKey="1">{t('components.channelButton.renameButton')}</Dropdown.Item>
-        <Dropdown.Item onClick={() => dispatch(actions.openModal({ type: 'remove', item: id }))} eventKey="2">{t('components.channelButton.deleteButton')}</Dropdown.Item>
-      </DropdownButton>
-    </ButtonGroup>
+        <span className="visually-hidden">{t('components.channelButton.dropdownToggleLabel')}</span>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item
+          onClick={() => dispatch(actions.openModal({ type: 'rename', item: { id, name } }))}
+          eventKey="1"
+        >
+          {t('components.channelButton.renameButton')}
+
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => dispatch(actions.openModal({ type: 'remove', item: id }))}
+          eventKey="2"
+        >
+          {t('components.channelButton.deleteButton')}
+
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 
