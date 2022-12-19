@@ -79,9 +79,8 @@ const SighUp = () => {
                 <Form onSubmit={formik.handleSubmit} className="p-4">
                   <h1 className="text-center mb-4">{t('pages.signUp.header')}</h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label={t('pages.signUp.usernameLabel')}>
+                    <FloatingLabel controlId="username" label={t('pages.signUp.usernameLabel')}>
                       <Form.Control
-                        id="username"
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -90,7 +89,6 @@ const SighUp = () => {
                         isInvalid={didSignUpFail
                           || (formik.touched.username && formik.errors.username)}
                         ref={inputRef}
-                        required
                       />
                       {formik.errors.username
                         && formik.touched.username
@@ -98,9 +96,8 @@ const SighUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label={t('pages.signUp.passwordLabel')}>
+                    <FloatingLabel controlId="password" label={t('pages.signUp.passwordLabel')}>
                       <Form.Control
-                        id="password"
                         name="password"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -109,7 +106,6 @@ const SighUp = () => {
                         placeholder={t('pages.signUp.passwordLabel')}
                         isInvalid={didSignUpFail
                           || (formik.touched.password && formik.errors.password)}
-                        required
                       />
                       {formik.errors.password
                         && formik.touched.password
@@ -117,9 +113,8 @@ const SighUp = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel label={t('pages.signUp.confirmPasswordLabel')}>
+                    <FloatingLabel controlId="passwordConfirmation" label={t('pages.signUp.confirmPasswordLabel')}>
                       <Form.Control
-                        id="passwordConfirmation"
                         name="passwordConfirmation"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}

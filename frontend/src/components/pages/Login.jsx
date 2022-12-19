@@ -68,9 +68,8 @@ const Login = () => {
                 <Form onSubmit={formik.handleSubmit} className="p-4">
                   <h1 className="text-center mb-4">{t('pages.login.header')}</h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel label={t('pages.login.usernameLabel')}>
+                    <FloatingLabel controlId="username" label={t('pages.login.usernameLabel')}>
                       <Form.Control
-                        id="username"
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -83,9 +82,8 @@ const Login = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel label={t('pages.login.passwordLabel')}>
+                    <FloatingLabel controlId="password" label={t('pages.login.passwordLabel')}>
                       <Form.Control
-                        id="password"
                         name="password"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
