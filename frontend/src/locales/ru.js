@@ -6,6 +6,7 @@ const ru = {
         confirmButton: 'Отправить',
         cancelButton: 'Отмена',
         loadingStatus: 'Отправка...',
+        formLabel: 'Имя канала',
         toast: 'Канал успешно добавлен!',
       },
       remove: {
@@ -21,6 +22,7 @@ const ru = {
         confirmButton: 'Отправить',
         cancelButton: 'Отмена',
         loadingStatus: 'Отправка...',
+        formLabel: 'Имя канала',
         toast: 'Канал успешно переименован!',
       },
       validation: {

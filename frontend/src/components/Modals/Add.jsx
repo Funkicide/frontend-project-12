@@ -58,7 +58,8 @@ const Add = () => {
       </Modal.Header>
       <Modal.Body>
         <Form noValidate onSubmit={formik.handleSubmit}>
-          <Form.Group className="position-relative">
+          <Form.Group controlId="channelName">
+            <Form.Label visuallyHidden>{t('modals.add.formLabel')}</Form.Label>
             <Form.Control
               disabled={formik.isSubmitting}
               isInvalid={formik.errors.channelName}
