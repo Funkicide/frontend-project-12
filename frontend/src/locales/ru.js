@@ -34,7 +34,7 @@ const ru = {
     pages: {
       login: {
         header: 'Войти',
-        confirmButton: 'Отправить',
+        confirmButton: 'Войти',
         usernameLabel: 'Ваш ник',
         passwordLabel: 'Пароль',
         footer: {
