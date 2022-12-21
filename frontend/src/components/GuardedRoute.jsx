@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks';
+import { useAuth } from '../providers/AuthProvider.jsx';
 import routes from '../routes';
 
 const GuardedRoute = ({ children }) => {

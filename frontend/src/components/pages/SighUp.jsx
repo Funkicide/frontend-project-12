@@ -13,7 +13,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes.js';
-import { useAuth } from '../../hooks/index.jsx';
+import { useAuth } from '../../providers/AuthProvider.jsx';
 
 const SighUp = () => {
   const [didSignUpFail, setSignUpFail] = useState(false);

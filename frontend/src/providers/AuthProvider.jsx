@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useMemo } from 'react';
+import React, {
+  createContext, useContext, useState, useMemo,
+} from 'react';
 
-import { AuthContext } from '../contexts/index.jsx';
+const AuthContext = createContext({});
+
+const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -33,3 +37,5 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
+
+export { useAuth };

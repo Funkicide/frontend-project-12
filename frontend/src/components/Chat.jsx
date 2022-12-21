@@ -9,7 +9,8 @@ import {
 import filter from 'leo-profanity';
 import { animateScroll } from 'react-scroll';
 
-import { useSocket, useAuth } from '../hooks/index.jsx';
+import { useSocket } from '../providers/SocketProvider.jsx';
+import { useAuth } from '../providers/AuthProvider.jsx';
 import { actions } from '../slices/index.js';
 import ChannelButton from './ChannelButton.jsx';
 

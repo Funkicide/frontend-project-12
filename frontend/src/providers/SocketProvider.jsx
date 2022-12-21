@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 
-import { SocketContext } from '../contexts/index.jsx';
-
 import { actions } from '../slices/index.js';
+
+const SocketContext = createContext({});
+
+const useSocket = () => useContext(SocketContext);
 
 const SocketProvider = ({ children }) => {
   const socket = io();
@@ -38,3 +40,5 @@ const SocketProvider = ({ children }) => {
 };
 
 export default SocketProvider;
+
+export { useSocket };

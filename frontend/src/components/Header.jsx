@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Button, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '../hooks';
+import { useAuth } from '../providers/AuthProvider.jsx';
 import routes from '../routes';
 
 const Header = () => {

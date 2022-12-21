@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useSocket } from '../../hooks';
+import { useSocket } from '../../providers/SocketProvider.jsx';
 
 const Remove = () => {
   const dispatch = useDispatch();
