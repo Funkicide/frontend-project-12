@@ -10,9 +10,9 @@ import App from './components/App';
 
 const AppRoutes = () => (
   <Routes>
-    <Route element={<App />}>
+    <Route path={routes.pages.rootPath()} element={<App />}>
       <Route
-        path={routes.pages.rootPath()}
+        index
         element={(
           <GuardedRoute>
             <Chat />
