@@ -7,7 +7,7 @@ const GuardedRoute = ({ children }) => {
   const auth = useAuth();
 
   return (
-    auth.loggedIn ? children : <Navigate to={routes.pages.loginPath()} />
+    auth.isLoggedIn ? children : <Navigate to={routes.pages.loginPath()} />
   );
 };
 

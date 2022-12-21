@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/index.jsx';
 
 const AuthProvider = ({ children }) => {
   const userId = JSON.parse(localStorage.getItem('userId'));
-  const [loggedIn, setLoggedIn] = useState(userId);
+  const [isLoggedIn, setLoggedIn] = useState(userId);
 
   const getAuthHeader = () => {
     if (userId && userId.token) {
@@ -22,8 +22,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const value = useMemo(() => ({
-    loggedIn, logIn, logOut, getAuthHeader,
-  }), [loggedIn, getAuthHeader]);
+    isLoggedIn, logIn, logOut, getAuthHeader,
+  }), [isLoggedIn, getAuthHeader]);
 
   return (
     <AuthContext.Provider value={value}>
