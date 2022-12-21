@@ -64,6 +64,10 @@ const ru = {
           userExists: 'Такой пользователь уже существует',
         },
       },
+      error: {
+        errorMessage: 'Упс, произошла ошибка!',
+        notExist: 'Такой страницы не существует.',
+      },
     },
     components: {
       channelButton: {
