@@ -52,6 +52,10 @@ const ru = {
         usernameLabel: 'Имя пользователя',
         passwordLabel: 'Пароль',
         confirmPasswordLabel: 'Подтвердите пароль',
+        footer: {
+          loginHeader: 'Уже есть аккаунт?',
+          loginLink: 'Войти',
+        },
         validation: {
           requiredField: 'Обязательное поле',
           usernameLength: 'От 3 до 20 символов',

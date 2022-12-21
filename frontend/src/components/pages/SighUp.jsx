@@ -148,6 +148,13 @@ const SighUp = () => {
                 </Form>
               </fieldset>
             </Card.Body>
+            <Card.Footer className="p-3">
+              <div className="text-center">
+                <span>{t('pages.signUp.footer.loginHeader')}</span>
+                {' '}
+                <Card.Link href={routes.pages.loginPath()}>{t('pages.signUp.footer.loginLink')}</Card.Link>
+              </div>
+            </Card.Footer>
           </Card>
         </div>
       </div>
