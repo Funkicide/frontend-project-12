@@ -142,7 +142,7 @@ const Chat = () => {
                 </div>
                 <div className="mt-auto px-5 py-3">
                   <Form
-                    className="border rounded-2"
+                    className="py-1 border rounded-2"
                     onSubmit={(e) => {
                       e.preventDefault();
                       const userId = JSON.parse(localStorage.getItem('userId'));
