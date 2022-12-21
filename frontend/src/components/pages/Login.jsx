@@ -20,12 +20,17 @@ const Login = () => {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const auth = useAuth();
+
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      navigate(routes.pages.rootPath());
+    }
+  });
 
   useEffect(() => {
     inputRef.current.focus();
   }, [authFailed]);
-
-  const auth = useAuth();
 
   const formik = useFormik({
     initialValues: {
