@@ -9,7 +9,7 @@ import {
 import filter from 'leo-profanity';
 import { animateScroll } from 'react-scroll';
 
-import { useSocket } from '../providers/SocketProvider.jsx';
+import { useApi } from '../providers/ApiProvider.jsx';
 import { useAuth } from '../providers/AuthProvider.jsx';
 import { actions } from '../slices/index.js';
 import ChannelButton from './ChannelButton.jsx';
@@ -19,7 +19,7 @@ import routes from '../routes.js';
 const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const socket = useSocket();
+  const api = useApi();
   const auth = useAuth();
   const [text, setText] = useState('');
   const defaultChannelRef = useRef(null);
@@ -152,7 +152,7 @@ const Chat = () => {
                         username: userId.username,
                         channelId: currentChannelId,
                       };
-                      socket.emit('newMessage', message, () => {
+                      api.emit('newMessage', message, () => {
                         setText('');
                       });
                     }}

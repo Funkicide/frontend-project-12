@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useSocket } from '../../providers/SocketProvider.jsx';
+import { useApi } from '../../providers/ApiProvider.jsx';
 
 const Rename = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Rename = () => {
   const { id, name: previousName } = useSelector((state) => state.modal.item);
   const channels = useSelector((state) => state.channelsInfo.channels);
   const channelNames = channels.map((channel) => channel.name);
-  const socket = useSocket();
+  const api = useApi();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -38,7 +38,7 @@ const Rename = () => {
         .required(t('modals.validation.requiredField')),
     }),
     onSubmit: ({ currentName }) => {
-      socket.emit('renameChannel', { id, name: currentName }, () => {
+      api.emit('renameChannel', { id, name: currentName }, () => {
         dispatch(actions.closeModal());
         toast.success(t('modals.rename.toast'));
       });

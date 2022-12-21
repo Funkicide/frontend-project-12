@@ -5,18 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useSocket } from '../../providers/SocketProvider.jsx';
+import { useApi } from '../../providers/ApiProvider.jsx';
 
 const Remove = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const id = useSelector((state) => state.modal.item);
   const [isSubmitting, setSubmitting] = useState(false);
-  const socket = useSocket();
+  const api = useApi();
 
   const handleDeletion = () => {
     setSubmitting(true);
-    socket.emit('removeChannel', { id }, () => {
+    api.emit('removeChannel', { id }, () => {
       dispatch(actions.closeModal());
       toast.success(t('modals.remove.toast'));
     });

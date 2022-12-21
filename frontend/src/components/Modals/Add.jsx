@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
-import { useSocket } from '../../providers/SocketProvider.jsx';
+import { useApi } from '../../providers/ApiProvider.jsx';
 
 const Add = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Add = () => {
 
   const channels = useSelector((state) => state.channelsInfo.channels);
   const channelNames = channels.map((channel) => channel.name);
-  const socket = useSocket();
+  const api = useApi();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -38,7 +38,7 @@ const Add = () => {
         .required(t('modals.validation.requiredField')),
     }),
     onSubmit: ({ channelName }) => {
-      socket.emit('newChannel', { name: channelName }, ({ data }) => {
+      api.emit('newChannel', { name: channelName }, ({ data }) => {
         dispatch(actions.setCurrentChannel({ channelId: data.id }));
         dispatch(actions.closeModal());
         toast.success(t('modals.add.toast'));
