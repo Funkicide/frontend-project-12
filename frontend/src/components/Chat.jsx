@@ -7,6 +7,7 @@ import {
   Spinner, Button, Form, InputGroup,
 } from 'react-bootstrap';
 import filter from 'leo-profanity';
+import { animateScroll } from 'react-scroll';
 
 import { useSocket, useAuth } from '../hooks/index.jsx';
 import { actions } from '../slices/index.js';
@@ -48,6 +49,13 @@ const Chat = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+  });
+
+  useEffect(() => {
+    animateScroll.scrollToBottom({
+      containerId: 'messageBox',
+      duration: 0,
+    });
   });
 
   const channels = useSelector((state) => state.channelsInfo.channels);
@@ -129,7 +137,7 @@ const Chat = () => {
                     {t('components.chat.messages.message', { count: currentChannelMessages.length })}
                   </span>
                 </div>
-                <div className="chat-messages overflow-auto px-5">
+                <div id="messageBox" className="chat-messages overflow-auto px-5">
                   {currentChannelMessages.map(renderMessage)}
                 </div>
                 <div className="mt-auto px-5 py-3">
