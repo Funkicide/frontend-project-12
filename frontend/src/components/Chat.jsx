@@ -13,6 +13,8 @@ import { actions } from '../slices/index.js';
 import ChannelButton from './ChannelButton.jsx';
 
 import routes from '../routes.js';
+import { channelsSelectors } from '../slices/channelsSlice.js';
+import { messagesSelector } from '../slices/messagesSlice.js';
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -57,13 +59,11 @@ const Chat = () => {
     });
   });
 
-  const channels = useSelector((state) => state.channelsInfo.channels);
-  const messages = useSelector((state) => state.messagesInfo.messages);
+  const channels = useSelector(channelsSelectors.channels);
+  const messages = useSelector(messagesSelector);
   [defaultChannelRef.current] = channels;
 
-  const currentChannelId = useSelector(
-    (state) => state.channelsInfo.currentChannelId
-  );
+  const currentChannelId = useSelector(channelsSelectors.currentChannelId);
   const currentChannel =
     channels.find(({ id }) => currentChannelId === id) ??
     defaultChannelRef.current;

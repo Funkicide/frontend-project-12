@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { modalSelectors } from '../../slices/modalSlice.js';
 import Add from './Add.jsx';
 import Remove from './Remove.jsx';
 import Rename from './Rename.jsx';
@@ -12,7 +13,7 @@ const modals = {
 };
 
 const ModalWindow = () => {
-  const modalType = useSelector((state) => state.modal.type);
+  const modalType = useSelector(modalSelectors.type);
   const Modal = modals[modalType];
 
   if (!Modal) {

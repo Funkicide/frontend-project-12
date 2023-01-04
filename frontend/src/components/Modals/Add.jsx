@@ -7,14 +7,15 @@ import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../slices';
 import { useApi } from '../../providers/ApiProvider.jsx';
+import { channelsSelectors } from '../../slices/channelsSlice';
 
 const Add = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const inputRef = useRef(null);
 
-  const channels = useSelector((state) => state.channelsInfo.channels);
-  const channelNames = channels.map((channel) => channel.name);
+  const channels = useSelector(channelsSelectors.channels);
+  const channelNames = channels.map(channelsSelectors.channelName);
   const api = useApi();
 
   useEffect(() => {

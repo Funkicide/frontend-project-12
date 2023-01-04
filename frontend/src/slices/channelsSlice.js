@@ -34,4 +34,10 @@ const channelsSlice = createSlice({
 
 export const { actions } = channelsSlice;
 
+export const channelsSelectors = {
+  channels: (state) => state.channelsInfo.channels,
+  currentChannelId: (state) => state.channelsInfo.currentChannelId,
+  channelName: (channel) => channel.name,
+};
+
 export default channelsSlice.reducer;

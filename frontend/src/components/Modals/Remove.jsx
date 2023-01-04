@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../slices';
 import { useApi } from '../../providers/ApiProvider.jsx';
+import { modalSelectors } from '../../slices/modalSlice';
 
 const Remove = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const id = useSelector((state) => state.modal.item);
+  const id = useSelector(modalSelectors.item);
   const [isSubmitting, setSubmitting] = useState(false);
   const api = useApi();
 
