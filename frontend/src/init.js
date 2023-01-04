@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  BrowserRouter,
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -21,7 +19,7 @@ import AppRoutes from './AppRoutes.jsx';
 import ru from './locales/ru.js';
 
 const rollbarConfig = {
-  accessToken: 'b0e70c8e768e4312945bbdec3b535648',
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
@@ -30,14 +28,12 @@ const rollbar = new Rollbar(rollbarConfig);
 
 const init = async () => {
   const defaultLanguage = 'ru';
-  await i18next
-    .use(initReactI18next)
-    .init({
-      lng: defaultLanguage,
-      resources: {
-        ru,
-      },
-    });
+  await i18next.use(initReactI18next).init({
+    lng: defaultLanguage,
+    resources: {
+      ru,
+    },
+  });
 
   const socket = io();
 
@@ -88,7 +84,7 @@ const init = async () => {
           </BrowserRouter>
         </Provider>
       </ErrorBoundary>
-    </RollbarProvider>,
+    </RollbarProvider>
   );
 };
 
