@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import React, { useRef, useEffect } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
 import { useApi } from '../../providers/ApiProvider.jsx';
@@ -37,10 +36,7 @@ const Rename = () => {
         .required(t('modals.validation.requiredField')),
     }),
     onSubmit: ({ currentName }) => {
-      api.emit('renameChannel', { id, name: currentName }, () => {
-        dispatch(actions.closeModal());
-        toast.success(t('modals.rename.toast'));
-      });
+      api.renameChannel(id, currentName);
     },
   });
 

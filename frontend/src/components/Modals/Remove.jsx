@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
 import { useApi } from '../../providers/ApiProvider.jsx';
@@ -16,10 +15,7 @@ const Remove = () => {
 
   const handleDeletion = () => {
     setSubmitting(true);
-    api.emit('removeChannel', { id }, () => {
-      dispatch(actions.closeModal());
-      toast.success(t('modals.remove.toast'));
-    });
+    api.removeChannel(id);
   };
 
   return (

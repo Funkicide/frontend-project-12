@@ -160,9 +160,7 @@ const Chat = () => {
                     username: userId.username,
                     channelId: currentChannelId,
                   };
-                  api.emit('newMessage', message, () => {
-                    setText('');
-                  });
+                  api.addNewMessage(message, () => setText(''));
                 }}
               >
                 <InputGroup hasValidation={!text}>

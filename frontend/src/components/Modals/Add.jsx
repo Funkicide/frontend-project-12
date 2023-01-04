@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import React, { useRef, useEffect } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import { actions } from '../../slices';
 import { useApi } from '../../providers/ApiProvider.jsx';
@@ -37,11 +36,7 @@ const Add = () => {
         .required(t('modals.validation.requiredField')),
     }),
     onSubmit: ({ channelName }) => {
-      api.emit('newChannel', { name: channelName }, ({ data }) => {
-        dispatch(actions.setCurrentChannel({ channelId: data.id }));
-        dispatch(actions.closeModal());
-        toast.success(t('modals.add.toast'));
-      });
+      api.addNewChannel(channelName);
     },
   });
 
