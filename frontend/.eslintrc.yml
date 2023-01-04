@@ -4,9 +4,12 @@ env:
 
 extends:
   - airbnb
+  - airbnb/hooks
   - plugin:react/recommended
   - plugin:functional/recommended
   - plugin:react-hooks/recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:prettier/recommended
 
 parserOptions:
   ecmaFeatures:
@@ -17,8 +20,10 @@ parserOptions:
 plugins:
   - react
   - functional
+  - prettier
 
 rules: 
+  prettier/prettier: 2
   import/extensions: 0
   import/no-unresolved: 0
   no-param-reassign: 0
