@@ -31,10 +31,10 @@ const Add = () => {
     validationSchema: yup.object().shape({
       channelName: yup
         .string()
-        .min(3, t('modals.validation.channelNameLength'))
-        .max(20, t('modals.validation.channelNameLength'))
-        .notOneOf(channelNames, t('modals.validation.notUnique'))
-        .required(t('modals.validation.requiredField')),
+        .min(3, 'modals.validation.channelNameLength')
+        .max(20, 'modals.validation.channelNameLength')
+        .notOneOf(channelNames, 'modals.validation.notUnique')
+        .required('modals.validation.requiredField'),
     }),
     onSubmit: ({ channelName }) => {
       api.addNewChannel(channelName);
@@ -64,7 +64,7 @@ const Add = () => {
               value={formik.values.channelName}
             />
             <Form.Control.Feedback tooltip type="invalid">
-              {formik.errors.channelName}
+              {t(formik.errors.channelName)}
             </Form.Control.Feedback>
           </Form.Group>
         </Form>

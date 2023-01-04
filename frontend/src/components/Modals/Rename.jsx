@@ -33,10 +33,10 @@ const Rename = () => {
     validationSchema: yup.object().shape({
       currentName: yup
         .string()
-        .min(3, t('modals.validation.channelNameLength'))
-        .max(20, t('modals.validation.channelNameLength'))
-        .notOneOf(channelNames, t('modals.validation.notUnique'))
-        .required(t('modals.validation.requiredField')),
+        .min(3, 'modals.validation.channelNameLength')
+        .max(20, 'modals.validation.channelNameLength')
+        .notOneOf(channelNames, 'modals.validation.notUnique')
+        .required('modals.validation.requiredField'),
     }),
     onSubmit: ({ currentName }) => {
       api.renameChannel(id, currentName);
@@ -68,7 +68,7 @@ const Rename = () => {
               value={formik.values.currentName}
             />
             <Form.Control.Feedback tooltip type="invalid">
-              {formik.errors.currentName}
+              {t(formik.errors.currentName)}
             </Form.Control.Feedback>
           </Form.Group>
         </Form>

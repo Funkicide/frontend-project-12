@@ -35,18 +35,18 @@ const SighUp = () => {
     validationSchema: yup.object().shape({
       username: yup
         .string()
-        .min(3, t('pages.signUp.validation.usernameLength'))
-        .max(20, t('pages.signUp.validation.usernameLength'))
-        .required(t('pages.signUp.validation.requiredField')),
+        .min(3, 'pages.signUp.validation.usernameLength')
+        .max(20, 'pages.signUp.validation.usernameLength')
+        .required('pages.signUp.validation.requiredField'),
       password: yup
         .string()
-        .min(6, t('pages.signUp.validation.passwordLength'))
-        .required(t('pages.signUp.validation.requiredField')),
+        .min(6, 'pages.signUp.validation.passwordLength')
+        .required('pages.signUp.validation.requiredField'),
       passwordConfirmation: yup
         .string()
         .test(
           'confirmPassword',
-          t('pages.signUp.validation.confirmPassword'),
+          'pages.signUp.validation.confirmPassword',
           (password, context) => password === context.parent.password
         ),
     }),
@@ -104,7 +104,7 @@ const SighUp = () => {
                       />
                       {formik.errors.username && formik.touched.username && (
                         <Form.Control.Feedback tooltip type="invalid">
-                          {formik.errors.username}
+                          {t(formik.errors.username)}
                         </Form.Control.Feedback>
                       )}
                     </FloatingLabel>
@@ -128,7 +128,7 @@ const SighUp = () => {
                       />
                       {formik.errors.password && formik.touched.password && (
                         <Form.Control.Feedback tooltip type="invalid">
-                          {formik.errors.password}
+                          {t(formik.errors.password)}
                         </Form.Control.Feedback>
                       )}
                     </FloatingLabel>
@@ -154,7 +154,7 @@ const SighUp = () => {
                       {formik.errors.passwordConfirmation &&
                         formik.touched.passwordConfirmation && (
                           <Form.Control.Feedback tooltip type="invalid">
-                            {formik.errors.passwordConfirmation}
+                            {t(formik.errors.passwordConfirmation)}
                           </Form.Control.Feedback>
                         )}
                       {didSignUpFail &&

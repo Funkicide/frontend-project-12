@@ -34,12 +34,8 @@ const Login = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      username: yup
-        .string()
-        .required(t('pages.login.validation.requiredField')),
-      password: yup
-        .string()
-        .required(t('pages.login.validation.requiredField')),
+      username: yup.string().required('pages.login.validation.requiredField'),
+      password: yup.string().required('pages.login.validation.requiredField'),
     }),
     onSubmit: async ({ username, password }) => {
       setAuthFailed(false);
@@ -91,7 +87,7 @@ const Login = () => {
                       />
                       {formik.errors.username && (
                         <Form.Control.Feedback tooltip type="invalid">
-                          {formik.errors.username}
+                          {t(formik.errors.username)}
                         </Form.Control.Feedback>
                       )}
                     </FloatingLabel>
@@ -111,7 +107,7 @@ const Login = () => {
                         isInvalid={authFailed || formik.errors.password}
                       />
                       <Form.Control.Feedback tooltip type="invalid">
-                        {formik.errors.password}
+                        {t(formik.errors.password)}
                       </Form.Control.Feedback>
                       {authFailed && (
                         <Form.Control.Feedback tooltip type="invalid">
