@@ -1,15 +1,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import {
-  Form, Button, FloatingLabel, Card,
-} from 'react-bootstrap';
-import {
-  useNavigate,
-} from 'react-router-dom';
-import React, {
-  useState, useRef, useEffect,
-} from 'react';
+import { Form, Button, FloatingLabel, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes.js';
@@ -40,13 +34,20 @@ const Login = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      username: yup.string().required(t('pages.login.validation.requiredField')),
-      password: yup.string().required(t('pages.login.validation.requiredField')),
+      username: yup
+        .string()
+        .required(t('pages.login.validation.requiredField')),
+      password: yup
+        .string()
+        .required(t('pages.login.validation.requiredField')),
     }),
     onSubmit: async ({ username, password }) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post(routes.api.loginPath(), { username, password });
+        const { data } = await axios.post(routes.api.loginPath(), {
+          username,
+          password,
+        });
         localStorage.setItem('userId', JSON.stringify(data));
         auth.logIn();
         navigate(routes.pages.rootPath());
@@ -71,9 +72,14 @@ const Login = () => {
             <Card.Body className="p-4">
               <fieldset disabled={formik.isSubmitting}>
                 <Form onSubmit={formik.handleSubmit} className="p-4">
-                  <h1 className="text-center mb-4">{t('pages.login.header')}</h1>
+                  <h1 className="text-center mb-4">
+                    {t('pages.login.header')}
+                  </h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel controlId="username" label={t('pages.login.usernameLabel')}>
+                    <FloatingLabel
+                      controlId="username"
+                      label={t('pages.login.usernameLabel')}
+                    >
                       <Form.Control
                         name="username"
                         onChange={formik.handleChange}
@@ -83,11 +89,18 @@ const Login = () => {
                         isInvalid={authFailed || formik.errors.username}
                         ref={inputRef}
                       />
-                      {formik.errors.username && <Form.Control.Feedback tooltip type="invalid">{formik.errors.username}</Form.Control.Feedback>}
+                      {formik.errors.username && (
+                        <Form.Control.Feedback tooltip type="invalid">
+                          {formik.errors.username}
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel controlId="password" label={t('pages.login.passwordLabel')}>
+                    <FloatingLabel
+                      controlId="password"
+                      label={t('pages.login.passwordLabel')}
+                    >
                       <Form.Control
                         name="password"
                         onChange={formik.handleChange}
@@ -97,8 +110,14 @@ const Login = () => {
                         placeholder={t('pages.login.passwordLabel')}
                         isInvalid={authFailed || formik.errors.password}
                       />
-                      <Form.Control.Feedback tooltip type="invalid">{formik.errors.password}</Form.Control.Feedback>
-                      {authFailed && <Form.Control.Feedback tooltip type="invalid">{t('pages.login.validation.wrongCredentials')}</Form.Control.Feedback>}
+                      <Form.Control.Feedback tooltip type="invalid">
+                        {formik.errors.password}
+                      </Form.Control.Feedback>
+                      {authFailed && (
+                        <Form.Control.Feedback tooltip type="invalid">
+                          {t('pages.login.validation.wrongCredentials')}
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
                   </Form.Group>
                   <div className="w-100">
@@ -111,9 +130,10 @@ const Login = () => {
             </Card.Body>
             <Card.Footer className="p-3">
               <div className="text-center">
-                <span>{t('pages.login.footer.signUpHeader')}</span>
-                {' '}
-                <Card.Link href={routes.pages.signUpPath()}>{t('pages.login.footer.signUpLink')}</Card.Link>
+                <span>{t('pages.login.footer.signUpHeader')}</span>{' '}
+                <Card.Link href={routes.pages.signUpPath()}>
+                  {t('pages.login.footer.signUpLink')}
+                </Card.Link>
               </div>
             </Card.Footer>
           </Card>

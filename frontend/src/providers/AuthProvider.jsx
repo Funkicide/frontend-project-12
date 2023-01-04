@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-  createContext, useContext, useState, useMemo,
-} from 'react';
+import React, { createContext, useContext, useState, useMemo } from 'react';
 
 const AuthContext = createContext({});
 
@@ -25,15 +23,17 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(null);
   };
 
-  const value = useMemo(() => ({
-    isLoggedIn, logIn, logOut, getAuthHeader,
-  }), [isLoggedIn, getAuthHeader]);
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      isLoggedIn,
+      logIn,
+      logOut,
+      getAuthHeader,
+    }),
+    [isLoggedIn, getAuthHeader]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

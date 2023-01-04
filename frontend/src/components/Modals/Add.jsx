@@ -1,6 +1,4 @@
-import {
-  Modal, Button, Form,
-} from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import React, { useRef, useEffect } from 'react';
@@ -31,7 +29,8 @@ const Add = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      channelName: yup.string()
+      channelName: yup
+        .string()
         .min(3, t('modals.validation.channelNameLength'))
         .max(20, t('modals.validation.channelNameLength'))
         .notOneOf(channelNames, t('modals.validation.notUnique'))
@@ -68,21 +67,28 @@ const Add = () => {
               onChange={formik.handleChange}
               value={formik.values.channelName}
             />
-            <Form.Control.Feedback tooltip type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
+            <Form.Control.Feedback tooltip type="invalid">
+              {formik.errors.channelName}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form>
-
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.add.cancelButton')}</Button>
+        <Button
+          onClick={() => dispatch(actions.closeModal())}
+          variant="secondary"
+        >
+          {t('modals.add.cancelButton')}
+        </Button>
         <Button
           disabled={formik.isSubmitting}
           onClick={formik.handleSubmit}
           type="submit"
           variant="primary"
         >
-          {formik.isSubmitting ? t('modals.add.loadingStatus') : t('modals.add.confirmButton')}
-
+          {formik.isSubmitting
+            ? t('modals.add.loadingStatus')
+            : t('modals.add.confirmButton')}
         </Button>
       </Modal.Footer>
     </Modal>

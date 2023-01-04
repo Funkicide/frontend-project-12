@@ -1,15 +1,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import {
-  Form, Button, FloatingLabel, Card,
-} from 'react-bootstrap';
-import {
-  useNavigate,
-} from 'react-router-dom';
-import React, {
-  useState, useRef, useEffect,
-} from 'react';
+import { Form, Button, FloatingLabel, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes.js';
@@ -39,25 +33,31 @@ const SighUp = () => {
       passwordConfirmation: '',
     },
     validationSchema: yup.object().shape({
-      username: yup.string()
+      username: yup
+        .string()
         .min(3, t('pages.signUp.validation.usernameLength'))
         .max(20, t('pages.signUp.validation.usernameLength'))
         .required(t('pages.signUp.validation.requiredField')),
-      password: yup.string()
+      password: yup
+        .string()
         .min(6, t('pages.signUp.validation.passwordLength'))
         .required(t('pages.signUp.validation.requiredField')),
-      passwordConfirmation: yup.string()
+      passwordConfirmation: yup
+        .string()
         .test(
           'confirmPassword',
           t('pages.signUp.validation.confirmPassword'),
-          (password, context) => password === context.parent.password,
+          (password, context) => password === context.parent.password
         ),
     }),
     onSubmit: async ({ username, password }) => {
       setSignUpFail(false);
       // formik.setSubmitting(true);
       try {
-        const { data } = await axios.post(routes.api.signUpPath(), { username, password });
+        const { data } = await axios.post(routes.api.signUpPath(), {
+          username,
+          password,
+        });
         localStorage.setItem('userId', JSON.stringify(data));
         auth.logIn();
         navigate(routes.pages.rootPath());
@@ -82,26 +82,38 @@ const SighUp = () => {
             <Card.Body className="p-4">
               <fieldset disabled={formik.isSubmitting}>
                 <Form onSubmit={formik.handleSubmit} className="p-4">
-                  <h1 className="text-center mb-4">{t('pages.signUp.header')}</h1>
+                  <h1 className="text-center mb-4">
+                    {t('pages.signUp.header')}
+                  </h1>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel controlId="username" label={t('pages.signUp.usernameLabel')}>
+                    <FloatingLabel
+                      controlId="username"
+                      label={t('pages.signUp.usernameLabel')}
+                    >
                       <Form.Control
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
                         placeholder={t('pages.signUp.usernameLabel')}
-                        isInvalid={didSignUpFail
-                          || (formik.touched.username && formik.errors.username)}
+                        isInvalid={
+                          didSignUpFail ||
+                          (formik.touched.username && formik.errors.username)
+                        }
                         ref={inputRef}
                       />
-                      {formik.errors.username
-                        && formik.touched.username
-                        && <Form.Control.Feedback tooltip type="invalid">{formik.errors.username}</Form.Control.Feedback>}
+                      {formik.errors.username && formik.touched.username && (
+                        <Form.Control.Feedback tooltip type="invalid">
+                          {formik.errors.username}
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-3 position-relative">
-                    <FloatingLabel controlId="password" label={t('pages.signUp.passwordLabel')}>
+                    <FloatingLabel
+                      controlId="password"
+                      label={t('pages.signUp.passwordLabel')}
+                    >
                       <Form.Control
                         name="password"
                         onChange={formik.handleChange}
@@ -109,16 +121,23 @@ const SighUp = () => {
                         value={formik.values.password}
                         type="password"
                         placeholder={t('pages.signUp.passwordLabel')}
-                        isInvalid={didSignUpFail
-                          || (formik.touched.password && formik.errors.password)}
+                        isInvalid={
+                          didSignUpFail ||
+                          (formik.touched.password && formik.errors.password)
+                        }
                       />
-                      {formik.errors.password
-                        && formik.touched.password
-                        && <Form.Control.Feedback tooltip type="invalid">{formik.errors.password}</Form.Control.Feedback>}
+                      {formik.errors.password && formik.touched.password && (
+                        <Form.Control.Feedback tooltip type="invalid">
+                          {formik.errors.password}
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="mb-4 position-relative">
-                    <FloatingLabel controlId="passwordConfirmation" label={t('pages.signUp.confirmPasswordLabel')}>
+                    <FloatingLabel
+                      controlId="passwordConfirmation"
+                      label={t('pages.signUp.confirmPasswordLabel')}
+                    >
                       <Form.Control
                         name="passwordConfirmation"
                         onChange={formik.handleChange}
@@ -126,18 +145,26 @@ const SighUp = () => {
                         value={formik.values.passwordConfirmation}
                         type="password"
                         placeholder={t('pages.signUp.confirmPasswordLabel')}
-                        isInvalid={didSignUpFail
-                          || (formik.touched.passwordConfirmation
-                          && formik.errors.passwordConfirmation)}
+                        isInvalid={
+                          didSignUpFail ||
+                          (formik.touched.passwordConfirmation &&
+                            formik.errors.passwordConfirmation)
+                        }
                       />
-                      {formik.errors.passwordConfirmation
-                        && formik.touched.passwordConfirmation
-                        && <Form.Control.Feedback tooltip type="invalid">{formik.errors.passwordConfirmation}</Form.Control.Feedback>}
-                      {didSignUpFail
-                        && (!formik.errors.username
-                          && !formik.errors.password
-                          && !formik.errors.passwordConfirmation)
-                        && <Form.Control.Feedback tooltip type="invalid">{t('pages.signUp.validation.userExists')}</Form.Control.Feedback>}
+                      {formik.errors.passwordConfirmation &&
+                        formik.touched.passwordConfirmation && (
+                          <Form.Control.Feedback tooltip type="invalid">
+                            {formik.errors.passwordConfirmation}
+                          </Form.Control.Feedback>
+                        )}
+                      {didSignUpFail &&
+                        !formik.errors.username &&
+                        !formik.errors.password &&
+                        !formik.errors.passwordConfirmation && (
+                          <Form.Control.Feedback tooltip type="invalid">
+                            {t('pages.signUp.validation.userExists')}
+                          </Form.Control.Feedback>
+                        )}
                     </FloatingLabel>
                   </Form.Group>
                   <div className="w-100">
@@ -150,9 +177,10 @@ const SighUp = () => {
             </Card.Body>
             <Card.Footer className="p-3">
               <div className="text-center">
-                <span>{t('pages.signUp.footer.loginHeader')}</span>
-                {' '}
-                <Card.Link href={routes.pages.loginPath()}>{t('pages.signUp.footer.loginLink')}</Card.Link>
+                <span>{t('pages.signUp.footer.loginHeader')}</span>{' '}
+                <Card.Link href={routes.pages.loginPath()}>
+                  {t('pages.signUp.footer.loginLink')}
+                </Card.Link>
               </div>
             </Card.Footer>
           </Card>

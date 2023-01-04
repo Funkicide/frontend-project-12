@@ -12,8 +12,14 @@ const Header = () => {
   return (
     <Navbar className="shadow-sm" variant="light" bg="white" expand="lg">
       <Container>
-        <Navbar.Brand href={routes.pages.rootPath()}>{t('components.header.brandLink')}</Navbar.Brand>
-        {auth.isLoggedIn && <Button onClick={auth.logOut} variant="primary">{t('components.header.logOutButton')}</Button>}
+        <Navbar.Brand href={routes.pages.rootPath()}>
+          {t('components.header.brandLink')}
+        </Navbar.Brand>
+        {auth.isLoggedIn && (
+          <Button onClick={auth.logOut} variant="primary">
+            {t('components.header.logOutButton')}
+          </Button>
+        )}
       </Container>
     </Navbar>
   );

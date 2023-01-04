@@ -13,11 +13,11 @@ const AppRoutes = () => (
     <Route path={routes.pages.rootPath()} element={<App />}>
       <Route
         index
-        element={(
+        element={
           <GuardedRoute>
             <Chat />
           </GuardedRoute>
-          )}
+        }
       />
       <Route path={routes.pages.loginPath()} element={<Login />} />
       <Route path={routes.pages.signUpPath()} element={<SignUp />} />

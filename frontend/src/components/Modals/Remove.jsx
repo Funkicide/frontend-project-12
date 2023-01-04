@@ -34,14 +34,20 @@ const Remove = () => {
       </Modal.Header>
       <Modal.Body>{t('modals.remove.body')}</Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.remove.cancelButton')}</Button>
+        <Button
+          onClick={() => dispatch(actions.closeModal())}
+          variant="secondary"
+        >
+          {t('modals.remove.cancelButton')}
+        </Button>
         <Button
           disabled={isSubmitting}
           onClick={handleDeletion}
           variant="danger"
         >
-          {isSubmitting ? t('modals.remove.loadingStatus') : t('modals.remove.confirmButton')}
-
+          {isSubmitting
+            ? t('modals.remove.loadingStatus')
+            : t('modals.remove.confirmButton')}
         </Button>
       </Modal.Footer>
     </Modal>

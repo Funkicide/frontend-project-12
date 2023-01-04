@@ -1,6 +1,4 @@
-import {
-  Modal, Button, Form,
-} from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import React, { useRef, useEffect } from 'react';
@@ -31,7 +29,8 @@ const Rename = () => {
     validateOnBlur: false,
     validateOnChange: false,
     validationSchema: yup.object().shape({
-      currentName: yup.string()
+      currentName: yup
+        .string()
         .min(3, t('modals.validation.channelNameLength'))
         .max(20, t('modals.validation.channelNameLength'))
         .notOneOf(channelNames, t('modals.validation.notUnique'))
@@ -58,7 +57,9 @@ const Rename = () => {
       <Modal.Body>
         <Form noValidate onSubmit={formik.handleSubmit}>
           <Form.Group controlId="currentName">
-            <Form.Label visuallyHidden>{t('modals.rename.formLabel')}</Form.Label>
+            <Form.Label visuallyHidden>
+              {t('modals.rename.formLabel')}
+            </Form.Label>
             <Form.Control
               disabled={formik.isSubmitting}
               isInvalid={formik.errors.currentName}
@@ -67,21 +68,28 @@ const Rename = () => {
               onChange={formik.handleChange}
               value={formik.values.currentName}
             />
-            <Form.Control.Feedback tooltip type="invalid">{formik.errors.currentName}</Form.Control.Feedback>
+            <Form.Control.Feedback tooltip type="invalid">
+              {formik.errors.currentName}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form>
-
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(actions.closeModal())} variant="secondary">{t('modals.rename.cancelButton')}</Button>
+        <Button
+          onClick={() => dispatch(actions.closeModal())}
+          variant="secondary"
+        >
+          {t('modals.rename.cancelButton')}
+        </Button>
         <Button
           disabled={formik.isSubmitting}
           onClick={formik.handleSubmit}
           type="submit"
           variant="primary"
         >
-          {formik.isSubmitting ? t('modals.rename.loadingStatus') : t('modals.rename.confirmButton')}
-
+          {formik.isSubmitting
+            ? t('modals.rename.loadingStatus')
+            : t('modals.rename.confirmButton')}
         </Button>
       </Modal.Footer>
     </Modal>
