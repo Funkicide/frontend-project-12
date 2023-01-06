@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../slices';
 
 const ChannelButton = ({
-  channel: { id, name, removable, currentChannelId },
+  channel: { id, name, removable },
+  currentChannelId,
   handleChannelChange,
 }) => {
   const dispatch = useDispatch();
