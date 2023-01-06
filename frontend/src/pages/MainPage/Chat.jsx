@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { useAuth } from '../providers/AuthProvider.jsx';
-import MessageBox from './MessageBox.jsx';
+import { useAuth } from '../../providers/AuthProvider.jsx';
+import MessageBox from './components/MessageBox.jsx';
 
-import { channelsSelectors, fetchData } from '../slices/channelsSlice.js';
-import { messagesSelector } from '../slices/messagesSlice.js';
-import Sidebar from './Sidebar.jsx';
-import LoadingSpinner from './LoadingSpinner.jsx';
+import { channelsSelectors, fetchData } from '../../slices/channelsSlice.js';
+import { messagesSelector } from '../../slices/messagesSlice.js';
+import Sidebar from './components/Sidebar.jsx';
+import LoadingSpinner from '../../common-components/LoadingSpinner.jsx';
 
 const Chat = () => {
   const dispatch = useDispatch();

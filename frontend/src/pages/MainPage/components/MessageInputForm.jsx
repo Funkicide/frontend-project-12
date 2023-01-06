@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { useApi } from '../providers/ApiProvider.jsx';
-import { channelsSelectors } from '../slices/channelsSlice.js';
+import { useApi } from '../../../providers/ApiProvider.jsx';
+import { channelsSelectors } from '../../../slices/channelsSlice.js';
 
 const MessageInputForm = () => {
   const { t } = useTranslation();

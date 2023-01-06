@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import ChannelButton from './ChannelButton';
-import { actions } from '../slices';
+import { actions } from '../../../slices';
 
 const Sidebar = ({ channels, currentChannelId }) => {
   const dispatch = useDispatch();

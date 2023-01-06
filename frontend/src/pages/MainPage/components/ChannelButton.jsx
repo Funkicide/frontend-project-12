@@ -1,10 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
-import { useDispatch } from 'react-redux';
-import { actions } from '../slices';
+import { actions } from '../../../slices';
 
 const ChannelButton = ({
   channel: { id, name, removable },

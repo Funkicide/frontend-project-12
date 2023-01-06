@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import routes from '../../routes.js';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
-const SighUp = () => {
+const SighUpPage = () => {
   const [didSignUpFail, setSignUpFail] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -190,4 +190,4 @@ const SighUp = () => {
   );
 };
 
-export default SighUp;
+export default SighUpPage;

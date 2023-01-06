@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { animateScroll } from 'react-scroll';
-import MessageInputForm from './MessageInputForm';
+import MessageInputForm from './MessageInputForm.jsx';
 
 const MessageBox = ({ currentChannelName, currentChannelMessages }) => {
   const { t } = useTranslation();

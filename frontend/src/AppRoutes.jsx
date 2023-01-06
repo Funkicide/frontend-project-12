@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import routes from './routes';
-import Chat from './components/Chat.jsx';
-import GuardedRoute from './components/GuardedRoute.jsx';
-import Login from './components/pages/Login.jsx';
-import SignUp from './components/pages/SighUp.jsx';
-import ErrorPage from './components/pages/ErrorPage.jsx';
-import App from './components/App';
+import GuardedRoute from './common-components/GuardedRoute.jsx';
+import Chat from './pages/MainPage/Chat.jsx';
+import SignInPage from './pages/SignInPage/SignInPage.jsx';
+import SignUpPage from './pages/SignUpPage/SighUpPage.jsx';
+import ErrorPage from './pages/ErrorPage/ErrorPage.jsx';
+import App from './common-components/App';
 
 const AppRoutes = () => (
   <Routes>
@@ -19,8 +19,8 @@ const AppRoutes = () => (
           </GuardedRoute>
         }
       />
-      <Route path={routes.pages.loginPath()} element={<Login />} />
-      <Route path={routes.pages.signUpPath()} element={<SignUp />} />
+      <Route path={routes.pages.loginPath()} element={<SignInPage />} />
+      <Route path={routes.pages.signUpPath()} element={<SignUpPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   </Routes>
