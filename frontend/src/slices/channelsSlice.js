@@ -1,9 +1,24 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+import routes from '../routes';
+
+export const fetchData = createAsyncThunk(
+  'channelsInfo/fetchData',
+  async (authHeader) => {
+    const { data } = await axios.get(routes.api.usersPath(), {
+      headers: authHeader,
+    });
+
+    return data;
+  }
+);
 
 const initialState = {
   channels: [],
   currentChannelId: null,
+  loadingStatus: 'idle',
 };
 
 const channelsSlice = createSlice({
@@ -25,10 +40,20 @@ const channelsSlice = createSlice({
       );
       channelToRename.name = name;
     },
-    setInitialState: (state, { payload }) => {
-      state.channels = payload.channels;
-      state.currentChannelId = payload.currentChannelId;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loadingStatus = 'loading';
+      })
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        state.channels = payload.channels;
+        state.currentChannelId = payload.currentChannelId;
+        state.loadingStatus = 'loaded';
+      })
+      .addCase(fetchData.rejected, (state) => {
+        state.loadingStatus = 'failed';
+      });
   },
 });
 
@@ -38,6 +63,7 @@ export const channelsSelectors = {
   channels: (state) => state.channelsInfo.channels,
   currentChannelId: (state) => state.channelsInfo.currentChannelId,
   channelName: (channel) => channel.name,
+  loadingStatus: (state) => state.channelsInfo.loadingStatus,
 };
 
 export default channelsSlice.reducer;

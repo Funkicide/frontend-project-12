@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-import { actions as channelActions } from './channelsSlice.js';
+import { actions as channelActions, fetchData } from './channelsSlice.js';
 
 const initialState = {
   messages: [],
@@ -20,7 +20,7 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelActions.setInitialState, (state, { payload }) => {
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
         const { messages } = payload;
         state.messages = messages;
       })
