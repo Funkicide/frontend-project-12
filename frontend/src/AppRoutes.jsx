@@ -4,7 +4,7 @@ import routes from './routes';
 import GuardedRoute from './common-components/GuardedRoute.jsx';
 import Chat from './pages/MainPage/Chat.jsx';
 import SignInPage from './pages/SignInPage/SignInPage.jsx';
-import SignUpPage from './pages/SignUpPage/SighUpPage.jsx';
+import SignUpPage from './pages/SignUpPage/SignUpPage.jsx';
 import ErrorPage from './pages/ErrorPage/ErrorPage.jsx';
 import App from './common-components/App';
 

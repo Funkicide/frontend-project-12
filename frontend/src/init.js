@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { io } from 'socket.io-client';
 import 'react-toastify/dist/ReactToastify.css';
 
-import ModalWindow from './components/Modals/Modal.jsx';
+import ModalWindow from './common-components/Modals/Modal.jsx';
 
 import AuthProvider from './providers/AuthProvider.jsx';
 import ApiProvider from './providers/ApiProvider.jsx';
