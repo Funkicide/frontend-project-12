@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
@@ -26,15 +25,15 @@ const rollbarConfig = {
 
 const rollbar = new Rollbar(rollbarConfig);
 
-const init = async () => {
-  const defaultLanguage = 'ru';
-  await i18next.use(initReactI18next).init({
-    lng: defaultLanguage,
-    resources: {
-      ru,
-    },
-  });
+const defaultLanguage = 'ru';
+i18next.use(initReactI18next).init({
+  lng: defaultLanguage,
+  resources: {
+    ru,
+  },
+});
 
+const Init = () => {
   const socket = io();
 
   socket.on('newMessage', (message) => {
@@ -57,8 +56,7 @@ const init = async () => {
     store.dispatch(actions.renameChannel({ id, name }));
   });
 
-  const rootNode = ReactDOM.createRoot(document.getElementById('root'));
-  rootNode.render(
+  return (
     <RollbarProvider instance={rollbar}>
       <ErrorBoundary errorMessage="Rollbar error in my app">
         <Provider store={store}>
@@ -88,4 +86,4 @@ const init = async () => {
   );
 };
 
-export default init;
+export default Init;

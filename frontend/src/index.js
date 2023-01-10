@@ -1,3 +1,5 @@
-import init from './init.js';
+import ReactDOM from 'react-dom/client';
+import Init from './Init.jsx';
 
-init();
+const rootNode = ReactDOM.createRoot(document.getElementById('root'));
+rootNode.render(<Init />);
