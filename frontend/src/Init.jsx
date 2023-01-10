@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import Rollbar from 'rollbar';
+// import Rollbar from 'rollbar';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { ToastContainer } from 'react-toastify';
 import { io } from 'socket.io-client';
@@ -23,7 +23,7 @@ const rollbarConfig = {
   captureUnhandledRejections: true,
 };
 
-const rollbar = new Rollbar(rollbarConfig);
+// const rollbar = new Rollbar(rollbarConfig);
 
 const defaultLanguage = 'ru';
 i18next.use(initReactI18next).init({
@@ -57,7 +57,7 @@ const Init = () => {
   });
 
   return (
-    <RollbarProvider instance={rollbar}>
+    <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary errorMessage="Rollbar error in my app">
         <Provider store={store}>
           <BrowserRouter>
