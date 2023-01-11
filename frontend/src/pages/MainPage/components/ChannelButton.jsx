@@ -17,7 +17,7 @@ const ChannelButton = ({
     'w-100',
     'rounded-0',
     'text-start',
-    'text-truncate'
+    'text-truncate',
   );
   const toggleClassNames = cn('rounded-0', 'flex-grow-0', 'btn');
 
@@ -54,17 +54,13 @@ const ChannelButton = ({
 
       <Dropdown.Menu>
         <Dropdown.Item
-          onClick={() =>
-            dispatch(actions.openModal({ type: 'rename', item: { id, name } }))
-          }
+          onClick={() => dispatch(actions.openModal({ type: 'rename', item: { id, name } }))}
           eventKey="1"
         >
           {t('components.channelButton.renameButton')}
         </Dropdown.Item>
         <Dropdown.Item
-          onClick={() =>
-            dispatch(actions.openModal({ type: 'remove', item: id }))
-          }
+          onClick={() => dispatch(actions.openModal({ type: 'remove', item: id }))}
           eventKey="2"
         >
           {t('components.channelButton.deleteButton')}

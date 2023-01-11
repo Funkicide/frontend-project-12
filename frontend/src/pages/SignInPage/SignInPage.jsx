@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import { Form, Button, FloatingLabel, Card } from 'react-bootstrap';
+import {
+  Form, Button, FloatingLabel, Card,
+} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -126,7 +128,8 @@ const SignInPage = () => {
             </Card.Body>
             <Card.Footer className="p-3">
               <div className="text-center">
-                <span>{t('pages.login.footer.signUpHeader')}</span>{' '}
+                <span>{t('pages.login.footer.signUpHeader')}</span>
+                {' '}
                 <Card.Link href={routes.pages.signUpPath()}>
                   {t('pages.login.footer.signUpLink')}
                 </Card.Link>

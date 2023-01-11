@@ -28,12 +28,11 @@ const Chat = () => {
   [defaultChannelRef.current] = channels;
 
   const currentChannelId = useSelector(channelsSelectors.currentChannelId);
-  const currentChannel =
-    channels.find(({ id }) => currentChannelId === id) ??
-    defaultChannelRef.current;
+  const currentChannel = channels.find(({ id }) => currentChannelId === id)
+    ?? defaultChannelRef.current;
 
   const currentChannelMessages = messages.filter(
-    ({ channelId }) => channelId === currentChannelId
+    ({ channelId }) => channelId === currentChannelId,
   );
 
   if (loadingStatus === 'loading') {

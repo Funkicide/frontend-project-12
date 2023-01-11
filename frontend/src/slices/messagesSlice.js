@@ -28,9 +28,9 @@ const messagesSlice = createSlice({
         channelActions.removeChannel,
         (state, { payload: { channelId } }) => {
           state.messages = state.messages.filter(
-            (message) => message.channelId !== channelId
+            (message) => message.channelId !== channelId,
           );
-        }
+        },
       );
   },
 });

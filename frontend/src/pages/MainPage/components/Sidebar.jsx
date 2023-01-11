@@ -38,9 +38,7 @@ const Sidebar = ({ channels, currentChannelId }) => {
         {channels.map(({ id, name, removable }) => (
           <li key={id} className="nav-item w-100">
             <ChannelButton
-              handleChannelChange={() =>
-                dispatch(actions.setCurrentChannel({ channelId: id }))
-              }
+              handleChannelChange={() => dispatch(actions.setCurrentChannel({ channelId: id }))}
               channel={{
                 id,
                 name,

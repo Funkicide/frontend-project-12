@@ -12,7 +12,7 @@ export const fetchData = createAsyncThunk(
     });
 
     return data;
-  }
+  },
 );
 
 const initialState = {
@@ -36,7 +36,7 @@ const channelsSlice = createSlice({
     },
     renameChannel: (state, { payload: { id, name } }) => {
       const channelToRename = state.channels.find(
-        (channel) => channel.id === id
+        (channel) => channel.id === id,
       );
       channelToRename.name = name;
     },

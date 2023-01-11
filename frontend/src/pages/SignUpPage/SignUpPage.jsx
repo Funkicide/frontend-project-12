@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import { Form, Button, FloatingLabel, Card } from 'react-bootstrap';
+import {
+  Form, Button, FloatingLabel, Card,
+} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +49,7 @@ const SignUpPage = () => {
         .test(
           'confirmPassword',
           'pages.signUp.validation.confirmPassword',
-          (password, context) => password === context.parent.password
+          (password, context) => password === context.parent.password,
         ),
     }),
     onSubmit: async ({ username, password }) => {
@@ -97,8 +99,8 @@ const SignUpPage = () => {
                         value={formik.values.username}
                         placeholder={t('pages.signUp.usernameLabel')}
                         isInvalid={
-                          didSignUpFail ||
-                          (formik.touched.username && formik.errors.username)
+                          didSignUpFail
+                          || (formik.touched.username && formik.errors.username)
                         }
                         ref={inputRef}
                       />
@@ -122,8 +124,8 @@ const SignUpPage = () => {
                         type="password"
                         placeholder={t('pages.signUp.passwordLabel')}
                         isInvalid={
-                          didSignUpFail ||
-                          (formik.touched.password && formik.errors.password)
+                          didSignUpFail
+                          || (formik.touched.password && formik.errors.password)
                         }
                       />
                       {formik.errors.password && formik.touched.password && (
@@ -146,25 +148,25 @@ const SignUpPage = () => {
                         type="password"
                         placeholder={t('pages.signUp.confirmPasswordLabel')}
                         isInvalid={
-                          didSignUpFail ||
-                          (formik.touched.passwordConfirmation &&
-                            formik.errors.passwordConfirmation)
+                          didSignUpFail
+                          || (formik.touched.passwordConfirmation
+                            && formik.errors.passwordConfirmation)
                         }
                       />
-                      {formik.errors.passwordConfirmation &&
-                        formik.touched.passwordConfirmation && (
+                      {formik.errors.passwordConfirmation
+                        && formik.touched.passwordConfirmation && (
                           <Form.Control.Feedback tooltip type="invalid">
                             {t(formik.errors.passwordConfirmation)}
                           </Form.Control.Feedback>
-                        )}
-                      {didSignUpFail &&
-                        !formik.errors.username &&
-                        !formik.errors.password &&
-                        !formik.errors.passwordConfirmation && (
+                      )}
+                      {didSignUpFail
+                        && !formik.errors.username
+                        && !formik.errors.password
+                        && !formik.errors.passwordConfirmation && (
                           <Form.Control.Feedback tooltip type="invalid">
                             {t('pages.signUp.validation.userExists')}
                           </Form.Control.Feedback>
-                        )}
+                      )}
                     </FloatingLabel>
                   </Form.Group>
                   <div className="w-100">
@@ -177,7 +179,8 @@ const SignUpPage = () => {
             </Card.Body>
             <Card.Footer className="p-3">
               <div className="text-center">
-                <span>{t('pages.signUp.footer.loginHeader')}</span>{' '}
+                <span>{t('pages.signUp.footer.loginHeader')}</span>
+                {' '}
                 <Card.Link href={routes.pages.loginPath()}>
                   {t('pages.signUp.footer.loginLink')}
                 </Card.Link>
